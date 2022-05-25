@@ -1,19 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, } from 'vue'
 import { getWindowNetwork, getUserAddress } from 'api/ethereum'
 import { hexToNumber } from 'api/ethers/utils'
 import useLocalStore from '@/store/local'
 
 import { ElConfigProvider } from 'element-plus'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import en from 'element-plus/lib/locale/lang/en'
-import useLisaStore from 'store/lisa'
 import RPreviewImage from 'components/dialog/RPreviewImage.vue'
-
-const lisaStore = useLisaStore()
-const locale = computed(() => {
-  return lisaStore.language === 'zh' ? zhCn : en
-})
 
 const localStore = useLocalStore()
 
@@ -53,6 +46,7 @@ window.ethereum.on('chainChanged', chainId => {
   setCurrentNetworkById(id)
   // window.location.reload()
 })
+
 window.ethereum.on('accountsChanged', ([account]) => {
   localStore.setUserAddress(account)
   // window.location.reload()
@@ -61,7 +55,7 @@ window.ethereum.on('accountsChanged', ([account]) => {
 </script>
 
 <template>
-  <el-config-provider :locale="locale">
+  <el-config-provider :locale="en">
     <router-view></router-view>
   </el-config-provider>
 

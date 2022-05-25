@@ -6,16 +6,10 @@ import { useRoute, useRouter } from 'vue-router'
 import useLisaStore from 'store/lisa'
 import useLocalStore from '@/store/local'
 
-
 const localStore = useLocalStore()
 const lisaStore = useLisaStore()
 const router = useRouter()
 const route = useRoute()
-
-const handleChangeCollapsed = () => {
-  lisaStore.setMenuCollapsed(!lisaStore.menuCollapsed)
-}
-
 
 const networkList = ref([])
 const networkListVisible = ref(false)
@@ -45,20 +39,34 @@ const connectWallet = () => {
   })
 }
 
+const currentMenu = computed(() => {
+  return route.name
+})
+const menuList = [
+  { id: 1, name: 'Home', routerName: 'Home' },
+  { id: 2, name: 'Players', routerName: 'Player' },
+  { id: 3, name: 'Reviews', routerName: 'Review' },
+]
+const goPage = (name) => {
+  if (currentMenu.value !== name) {
+    currentMenu.value = name
+    router.push({ name: name })
+  }
+}
 </script>
 
 <template>
   <div class="layout-header">
-    <div class="header-left">
-      <div class="menu-collapsed" @click="handleChangeCollapsed">
-        <i :class="['iconfont', lisaStore.menuCollapsed ? 'icon-outdent' : 'icon-indent']" ></i>
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="nav-item" v-show="showWallet">
-        <div class="content">
-          <el-button size="small" :type="!userAddress ? 'danger' : 'primary'" @click="connectWallet">{{shortUserAddress}}</el-button>
+    <div class="header-content">
+      <div class="header-left">
+        <svg-img class="logo" name="logo" @click="goPage('Home')"></svg-img>
+        <div class="menu-list">
+          <div class="item" :class="{'item-active': currentMenu === item.routerName}" v-for="item in menuList" :key="item.id"
+            @click="goPage(item.routerName)">{{item.name}}</div>
         </div>
+      </div>
+      <div class="header-right">
+        <div class="me-item" @click="goPage('Me')">Me</div>
       </div>
     </div>
   </div>
@@ -66,25 +74,51 @@ const connectWallet = () => {
 
 <style lang="scss">
 .layout-header {
-  display: flex;
-  justify-content: space-between;
+  background: rgb(26 32 36 / 80%);
+  box-shadow: 0 10px 20px rgb(0 0 0 / 25%);
+
+  // backdrop-filter: blur(20px);
+
+  .header-content {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+  }
 
   .header-left {
+    display: flex;
+    align-items: center;
     height: 100%;
 
-    .menu-collapsed {
-      width: 36px;
-      height: 100%;
+    .logo {
+      width: 167px;
+      height: 40px;
+      margin-right: 20px;
       cursor: pointer;
+    }
 
-      @include flex-center;
+    .menu-list {
+      display: flex;
+      align-items: center;
+      height: 100%;
 
-      .iconfont {
-        font-size: 18px;
+      .item {
+        height: 100%;
+        padding: 0 16px;
+        font-weight: 600;
+        line-height: 60px;
+        cursor: pointer;
       }
 
-      &:hover {
-        background: rgb(246 246 246);
+      .item-active {
+        color: red;
       }
     }
   }
@@ -94,37 +128,11 @@ const connectWallet = () => {
     align-items: center;
     justify-content: flex-end;
 
-    .nav-item {
+    .me-item {
       height: 100%;
-      color: rgb(96 98 102);
+      padding: 0 16px;
+      line-height: 48px;
       cursor: pointer;
-
-      @include flex-center;
-
-      .el-dropdown--small {
-        height: 100%;
-      }
-
-      .content {
-        height: 100%;
-        padding: 0 10px;
-
-        @include flex-center;
-
-        .userinfo-avatar {
-          width: 24px;
-          height: 24px;
-          margin-right: 8px;
-        }
-
-        .userinfo-name {
-          margin-right: 4px;
-        }
-      }
-
-      &:hover {
-        background: rgb(246 246 246);
-      }
     }
   }
 }

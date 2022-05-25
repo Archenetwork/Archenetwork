@@ -3,16 +3,15 @@
 </script>
 
 <template>
-  <div class="home-page">
+  <div class="review-page">
     <div class="a-container">
-      home
-      <div class="test" style="width: 100%;height: 1000px;"></div>
+      review
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.home-page {
-  width: 100%;
+.review-page {
+
 }
 </style>

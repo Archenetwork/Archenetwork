@@ -12,6 +12,21 @@ const appRoute = {
       component: () => import('@/views/home/index.vue'),
     },
     {
+      path: 'player',
+      name: 'Player',
+      component: () => import('@/views/player/index.vue'),
+    },
+    {
+      path: 'review',
+      name: 'Review',
+      component: () => import('@/views/review/index.vue'),
+    },
+    {
+      path: 'me',
+      name: 'Me',
+      component: () => import('@/views/me/index.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('@/views/other/notFound.vue'),

@@ -3,16 +3,15 @@
 </script>
 
 <template>
-  <div class="home-page">
+  <div class="player-page">
     <div class="a-container">
-      home
-      <div class="test" style="width: 100%;height: 1000px;"></div>
+      player
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.home-page {
+.player-page {
   width: 100%;
 }
 </style>
