@@ -1,0 +1,60 @@
+{
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": false,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "none",
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "auto-close-tag.enableAutoCloseTag": true,
+  "stylelint.validate": [
+    "css",
+    "less",
+    "scss",
+    "vue"
+  ],
+  "vetur.format.defaultFormatter.js": "none",
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "auto"
+    }
+  },
+  "vetur.experimental.templateInterpolationService": true,
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "cSpell.words": [
+    "heco"
+  ],
+  "i18n-ally.localesPaths": [
+    "src/i18n",
+    "src/i18n/lang"
+  ],
+  "i18n-ally.sourceLanguage": "modules"
+}

@@ -1,0 +1,263 @@
+/*
+ * @Descripttion: Atomic Class
+ * @Author: pujianguo
+ * @Date: @Date: 2022-05-22 23:12:59
+ */
+
+// $important:       !important;
+
+// background color
+// .r-bg-color{
+//   background-color: $uni-bg-color !important;
+// }
+// .r-bg-color-grey{
+//   background-color: $uni-bg-color-grey !important;
+// }
+// .r-bg-color-card{
+//   background-color: $uni-bg-color-card !important;
+// }
+// .r-bg-transparent{
+//   background-color: transparent !important;
+// }
+
+// text-color
+.r-text-link {
+  color: var(--r-link-color);
+  cursor: pointer;
+}
+
+.r-text-primary {
+  color: var(--el-text-color-primary);
+}
+
+.r-text-regular {
+  color: var(--el-text-color-regular);
+}
+
+.r-text-secondary {
+  color: var(--el-text-color-secondary);
+}
+
+.r-text-placeholder {
+  color: var(--el-text-color-placeholder);
+}
+
+.r-cursor-pointer {
+  cursor: pointer;
+}
+
+.r-cursor-default {
+  cursor: default;
+}
+
+.r-text-primary {
+  color: var(--el-color-primary) !important;
+}
+
+.r-text-success {
+  color: var(--el-color-success) !important;
+}
+
+.r-text-warning {
+  color: var(--el-color-warning) !important;
+}
+
+.r-text-danger {
+  color: var(--el-color-danger) !important;
+}
+
+// .r-text-grey{
+//   color: $uni-text-color-grey !important;
+// }
+// .r-text-placeholder{
+//   color: $uni-text-color-placeholder !important;
+// }
+// .r-text-disable{
+//   color: $uni-text-color-disable !important;
+// }
+// .r-text-title{
+// 	color: $uni-color-title !important;
+// }
+// .r-text-subtitle{
+// 	color: $uni-color-subtitle !important;
+// }
+// .r-text-paragraph{
+//   color: $uni-color-paragraph !important;
+// }
+
+// hidden text line
+.r-text-line-1 {
+  @include ellipsis;
+}
+
+.r-text-line-2 {
+  @include multi-line-ellipsis(2);
+}
+
+.r-text-line-3 {
+  @include multi-line-ellipsis(3);
+}
+
+.r-text-line-4 {
+  @include multi-line-ellipsis(4);
+}
+
+.r-text-line-5 {
+  @include multi-line-ellipsis(5);
+}
+
+.r-box-shadow {
+  box-shadow: 0 2px 6px 0 rgb(0 0 0 / 20%);
+}
+
+// border
+$borderSize: (
+  -no: 0,
+  // "": 1rpx solid $uni-border-color,
+);
+
+@each $key, $value in $borderSize {
+  .r-border#{$key} {
+    border: $value;
+  }
+  .r-border-top#{$key} {
+    border-top: $value !important;
+  }
+  .r-border-right#{$key} {
+    border-right: $value !important;
+  }
+  .r-border-bottom#{$key} {
+    border-bottom: $value !important;
+  }
+  .r-border-left#{$key} {
+    border-left: $value !important;
+  }
+}
+
+// margin
+$marginSize: (
+  -no: 0,
+  -sm: 8px,
+  "": 16px,
+  -lg: 24px
+);
+
+@each $key, $value in $marginSize {
+  .r-margin#{$key} {
+    margin: $value !important;
+  }
+  .r-margin-top#{$key} {
+    margin-top: $value !important;
+  }
+  .r-margin-right#{$key} {
+    margin-right: $value !important;
+  }
+  .r-margin-bottom#{$key} {
+    margin-bottom: $value !important;
+  }
+  .r-margin-left#{$key} {
+    margin-left: $value !important;
+  }
+}
+
+// padding
+$paddingSize: (
+  -no: 0 ,
+  -sm: 8px ,
+  "": 16px ,
+  -lg: 24px
+);
+
+@each $key, $value in $paddingSize {
+  .r-padding#{$key} {
+    padding: $value !important;
+  }
+  .r-padding-top#{$key} {
+    padding-top: $value !important;
+  }
+  .r-padding-right#{$key} {
+    padding-right: $value !important;
+  }
+  .r-padding-bottom#{$key} {
+    padding-bottom: $value !important;
+  }
+  .r-padding-left#{$key} {
+    padding-left: $value !important;
+  }
+}
+
+// position
+.r-position-relative {
+  position: relative;
+}
+
+// text
+.r-text-align-center {
+  text-align: center;
+}
+
+.r-text-font-bold {
+  font-weight: bold;
+}
+
+.r-font-size-10 {
+  display: inline-block;
+  font-size: 12px;
+  transform: scale(.8333);
+}
+
+.r-font-size-8 {
+  display: inline-block;
+  font-size: 12px;
+  transform: scale(.6333);
+}
+
+// width
+.r-width-auto {
+  width: auto !important;
+}
+
+.r-width-100 {
+  width: 100% !important;
+}
+
+// flex
+.r-display-flex {
+  display: flex;
+}
+
+.r-display-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.r-flex-item {
+  flex: 1;
+  width: 0;
+}
+
+.r-flex-column-item {
+  flex: 1;
+  height: 0;
+}
+
+// overflow
+.r-overflow-hidden {
+  overflow: hidden;
+}
+
+.r-overflow-x-auto {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.r-overflow-y-auto {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.r-span-time {
+  display: inline-block;
+  width: 65px;
+  text-align: left;
+}

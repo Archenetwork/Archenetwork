@@ -1,0 +1,39 @@
+$--colors: (
+  "primary": (
+    "base": #409eff,
+  ),
+  "success": (
+    "base": #21ba45,
+  ),
+  "warning": (
+    "base": #f2711c,
+  ),
+  "danger": (
+    "base": #db2828,
+  ),
+  "error": (
+    "base": #db2828,
+  ),
+  // "info": (
+  //   "base": #42b8dd,
+  // ),
+);
+
+// You should use them in scss, because we calculate it by sass.
+// comment next lines to use default color
+@forward "element-plus/theme-chalk/src/common/var.scss" with(
+  // $colors: (
+  //   'primary': (
+  //     'base': green,
+  //   ),
+  // )
+  $colors: $--colors,
+  $button-padding-horizontal: ("default": 50px)
+);
+
+// If you just import on demand, you can ignore the following content.
+// if you want to import all
+// @use "element-plus/theme-chalk/src/index.scss" as *;
+
+// You can comment it to hide debug info.
+// @debug $--colors;

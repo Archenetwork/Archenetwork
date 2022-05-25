@@ -1,0 +1,72 @@
+/* stylelint-disable */
+/* flex-center */
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-x() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@mixin flex-center-y() {
+  display: flex;
+  align-items: center;
+}
+
+/* flex-between */
+@mixin flex-between() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-around() {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* ellipsis */
+@mixin ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* multi line ellipsis */
+@mixin multi-line-ellipsis($num: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+}
+
+@mixin circle($width) {
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+
+  @include flex-center;
+}
+
+@mixin arrows($deg) {
+  @include flex-center;
+
+  &::before {
+    width: 7px;
+    height: 7px;
+    content: " ";
+    border-color: $primary-color;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    transform: rotate($deg);
+  }
+}
