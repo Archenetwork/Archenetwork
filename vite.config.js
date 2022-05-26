@@ -1,36 +1,16 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import html from 'vite-plugin-html'
 import { resolve } from 'path'
-import styleImport from 'vite-plugin-style-import'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 
 export default ({ mode }) => {
-  const isDev = mode === 'development'
   const isRelease = mode === 'production'
   return defineConfig({
     plugins: [
       vue(),
-      html({
-        inject: {
-          data: {
-            injectScript: isDev ? '<script src="https://cdn.jsdelivr.net/npm/eruda"></script><script>eruda.init();</script>' : '',
-          },
-        },
-        minify: true,
-      }),
-      styleImport({
-        libs: [
-          {
-            libraryName: 'vant',
-            esModule: true,
-            resolveStyle: (name) => `vant/es/${name}/style/index`,
-          },
-        ],
-      }),
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),

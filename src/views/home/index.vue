@@ -1,18 +1,14 @@
 <script setup>
+import Banner from './Banner.vue'
+import Player from './Player.vue'
+import Review from './Review.vue'
 
 </script>
 
 <template>
-  <div class="home-page">
-    <div class="a-container">
-      home
-      <div class="test" style="width: 100%;height: 1000px;"></div>
-    </div>
+  <div class="home-page r-width-100">
+    <banner></banner>
+    <player></player>
+    <review></review>
   </div>
 </template>
-
-<style lang="scss">
-.home-page {
-  width: 100%;
-}
-</style>

@@ -88,10 +88,9 @@ const handleClickOutWallet = (el) => {
   }
 }
 const handleChangeWallet = async (item) => {
-  if (item.walletType !== walletType.value) {
+  if (item.id !== walletType.value) {
     try {
       const chainId = walletStore.selectChainId
-
       if (item.id === 1) {
         await connectMetamask()
       } else if (item.id === 2) {
@@ -169,9 +168,9 @@ const closeAllPopup = () => {
           </div>
           <!-- userInfo -->
           <div class="user-info" v-else @click="handleChangeWalletVisible(true)">
-            <!-- <div class="user-avatar">
-              <img :src="userInfo.avatar" alt="">
-            </div> -->
+            <div class="user-avatar">
+              <img src="/images/avatar.png" alt="">
+            </div>
             <div class="user-name r-text-line-1">{{walletStore.shortAccount}}</div>
             <div class="arrow">
               <svg-icon class="arrow" name="arrow_down"></svg-icon>

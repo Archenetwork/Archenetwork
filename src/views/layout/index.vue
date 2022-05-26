@@ -44,12 +44,13 @@ import MainFooter from './Footer.vue'
   }
 
   &-container {
+    position: relative;
     flex: 1;
     padding-top: 100px;
   }
 
-  &-footer{
-
+  &-footer {
+    position: relative;
   }
 }
 </style>
