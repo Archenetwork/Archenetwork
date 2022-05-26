@@ -9,6 +9,7 @@ const ENV = import.meta.env
 export default {
   env: ENV.MODE,
   baseUrl: ENV.VITE_BASEURL,
+  chains: ENV.VITE_CHAINS,
   agencyContractAddress: ENV.VITE_AGENCY_CONTRACT,
 
   // common

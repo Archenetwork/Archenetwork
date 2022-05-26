@@ -6,6 +6,7 @@
 
 const LOCAL_STORE = 'local-store'
 const LISA_STORE = 'lisa-store'
+const WALLET_STORE = 'wallet-store'
 
 export default {
   // setLocalStore
@@ -30,5 +31,17 @@ export default {
   },
   rmLisaStore: () => {
     window.localStorage.removeItem(LISA_STORE)
+  },
+
+  // wallet
+  setWalletStore: payload => {
+    window.localStorage.setItem(WALLET_STORE, JSON.stringify(payload))
+  },
+  getWalletStore: () => {
+    const res = window.localStorage.getItem(WALLET_STORE)
+    return res ? JSON.parse(res) : null
+  },
+  rmWalletStore: () => {
+    window.localStorage.removeItem(WALLET_STORE)
   },
 }

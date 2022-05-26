@@ -2,10 +2,8 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const useClickOutside = (elementRef) => {
   const isClickOutside = ref(false)
-  // click event
   const handler = (e) => {
     if (elementRef.value) {
-      console.log('click', e.target)
       if (elementRef.value.contains(e.target)) {
         isClickOutside.value = false
       } else {

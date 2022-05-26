@@ -1,19 +1,21 @@
 <script setup>
 import MainHeader from './Header.vue'
+import MainFooter from './Footer.vue'
+
 </script>
 
 <template>
   <div class="layout">
-    <main-header class="layout-header"></main-header>
-    <div class="layout-content">
+    <main-header></main-header>
+    <div class="layout-container">
       <router-view></router-view>
     </div>
+    <main-footer></main-footer>
   </div>
+
 </template>
 
 <style lang="scss">
-$menu-height: 60px;
-
 .layout {
   position: relative;
   display: flex;
@@ -21,18 +23,33 @@ $menu-height: 60px;
   width: 100%;
   min-height: 100vh;
   color: #fff;
-  background: #1a2024;
+  background: var(--bg-color);
 
-  .layout-header {
-    position: fixed;
-    z-index: 2000;
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: $menu-height;
+    height: 500px;
+    content: "";
+    background: url("/images/page_bg.png") no-repeat center / 100%;
+    filter: blur(97.8581px);
+    opacity: .5;
   }
 
-  .layout-content {
+  &-header {
+    position: fixed;
+    z-index: 2000;
+    height: 100px;
+  }
+
+  &-container {
     flex: 1;
-    padding-top: $menu-height;
+    padding-top: 100px;
+  }
+
+  &-footer{
+
   }
 }
 </style>

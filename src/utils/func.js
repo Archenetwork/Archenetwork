@@ -7,9 +7,8 @@ import * as filterConst from '@/filter/const'
 import formatFunc from '@/filter/format'
 import storage from 'utils/storage'
 import { ElMessage, ElNotification, ElMessageBox } from 'element-plus'
-
+import chains from '@/lib/chains'
 import useLocalStore from '@/store/local'
-import useLisaStore from 'store/lisa'
 import config from '@/config'
 
 export const checkWalletHandle = (checkChain = 0) => {
@@ -328,30 +327,28 @@ export const getCountdownObj = (t) => {
 }
 
 export const getShortAddress = address => {
-  return address ? `${address.substr(0, 6)}...${address.substr(-4)}` : ''
+  return address ? `${address.substr(0, 4)}...${address.substr(-4)}` : ''
 }
 
-// Wallet address processing
-export const walltUpadte = function (name) {
-  if (!name) {
-    return
-  }
-  const len = name.length - 5
-  return [...name]
-    .map((item, index, arr) => {
-      if (index >= 6 && index < len) {
-        return ''
-      }
-      if (index === len) {
-        return '...'
-      }
-      if (index < 6 || index > len) {
-        return item
-      }
-    })
-    .join('')
+export const getBlockExplorerUrls = id => {
+  return chains[id].blockExplorerUrls[0]
 }
 
+export const getChainInfoById = id => {
+  return chains[id] || null
+}
+export const getChainList = () => {
+  const ids = config.chains.split(',')
+  return ids.map(id => {
+    const item = chains[id]
+    return {
+      chainId: Number(item.chainId),
+      chainName: item.chainName,
+      showName: item.showName,
+      icon: item.icon,
+    }
+  })
+}
 export const getNumberShortString = (number, len) => {
   let numberString = number.toString()
   const numberLen = numberString.length
@@ -399,68 +396,17 @@ export const confirmExecHandle = (title, text, callback, cancelCallBack = null) 
   }).then(() => {}).catch(() => {})
 }
 
-/** *************** table route*************** **/
-export const getRouteQuery = (query) => {
-  const q = Object.assign({}, query)
-  q.pageNo = q.current
-  q.pageSize = q.limit
-  delete q.current
-  delete q.limit
-  delete q.t
-  // Make transformations as needed
-  // if (q.store_ids) {
-  //   q.store_ids = q.store_ids.split(',')
-  // }
-  // Make transformations as needed
-  // if (q.begin_time) {
-  //   q.begin_time = format('submitTime', q.begin_time)
-  // }
-  // if (q.end_time) {
-  //   q.end_time = format('submitTime', q.end_time)
-  // }
-  return q
-}
-export const updateRouteQuery = (route, router, obj, clearOtherQuery = false) => {
-  // console.log('11', route.query, obj)
-  const lisaStore = useLisaStore()
-  let q // The query is finally set
-  let s // The query is finally saved in the store
-  let isPage = true
-  // no page query
-  if (!Object.prototype.hasOwnProperty.call(obj, 'current') && route.query.current !== undefined) {
-    if (clearOtherQuery) {
-      s = Object.assign({ limit: lisaStore.pageSize, current: 1, total: 0 }, obj)
-      q = Object.assign({ limit: lisaStore.pageSize, current: 1 }, obj)
-    } else {
-      isPage = false
-      s = Object.assign({}, route.query, obj, { current: 1 })
-      q = Object.assign({}, route.query, obj, { current: 1 })
-    }
-  } else { // pages
-    s = Object.assign({}, route.query, obj)
-    // Current and total are not stored in routes
-    delete obj.total
-    q = Object.assign({}, route.query, obj)
+// check install metamask
+export const checkInstallMetamask = () => {
+  if (!window.ethereum) {
+    ElMessage({
+      showClose: true,
+      message: "No browser wallet detected. You'll need to <a target='_blank' href='https://metamask.io/download/'>install MetaMask</a> to continue. Once you have it installed, go ahead and refresh the page.",
+      dangerouslyUseHTMLString: true,
+      type: 'error',
+    })
+    return false
+  } else {
+    return true
   }
-  delete s.t
-  // clear null in q, not need clear null in s
-  for (const k in q) {
-    if (q[k] === null) {
-      delete q[k]
-    }
-  }
-
-  // save to store
-  lisaStore.setPageOption({
-    routerName: route.name,
-    isPage: isPage,
-    data: s,
-  })
-  q.t = (new Date()).getTime()
-  router.replace({ query: q })
-}
-export const clearRouteQuery = (router, routerName) => {
-  const lisaStore = useLisaStore()
-  lisaStore.clearPageOption(routerName)
-  router.replace({ query: {} })
 }

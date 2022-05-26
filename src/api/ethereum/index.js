@@ -77,9 +77,8 @@ export const changeEthereumChain = (chainId) => {
  */
 export const addEthereumChain = (chainId) => {
   const chain = chains.find(x => x.chainId === chainId)
-  console.log('add chain', chainId, chain)
   const params = {
-    chainId: toHex(chainId),
+    chainId: toHex(chainId + ''),
     chainName: chain.name,
     rpcUrls: chain.rpc,
     blockExplorerUrls: [((chain.explorers && chain.explorers.length > 0 && chain.explorers[0].url) ? chain.explorers[0].url : chain.infoURL)],

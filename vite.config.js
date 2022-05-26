@@ -68,6 +68,10 @@ export default ({ mode }) => {
         components: resolve(__dirname, 'src/components'),
         utils: resolve(__dirname, 'src/utils'),
         api: resolve(__dirname, 'src/api'),
+        process: 'process/browser',
+        stream: 'stream-browserify',
+        zlib: 'browserify-zlib',
+        util: 'util',
       },
     },
     css: {
@@ -75,21 +79,10 @@ export default ({ mode }) => {
         scss: {
           javascriptEnabled: true,
           additionalData: (content, loaderContext) => {
-            // return "@import 'styles/mixins.scss';" + content
             return `
               @use "styles/mixins.scss" as *;
               @use "styles/element.scss" as *;
             ` + content
-            // if (loaderContext.includes('modules/pc') || loaderContext.includes('')) {
-            //   return `
-            //     @use "styles/mixins.scss" as *;
-            //   ` + content
-            // }
-            // if (loaderContext.includes('/element-plus@')) {
-            //   return `
-            //     @use "pc/styles/element.scss" as *;
-            //   ` + content
-            // }
           },
         },
       },

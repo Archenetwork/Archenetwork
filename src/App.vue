@@ -1,16 +1,17 @@
 <script setup>
-import { ref, } from 'vue'
+import { computed, ref } from 'vue'
 import { getWindowNetwork, getUserAddress } from 'api/ethereum'
-import { hexToNumber } from 'api/ethers/utils'
 import useLocalStore from '@/store/local'
-
-import { ElConfigProvider } from 'element-plus'
+import useWalletStore from '@/store/wallet'
+import { ElConfigProvider, ElMessage } from 'element-plus'
 import en from 'element-plus/lib/locale/lang/en'
 import RPreviewImage from 'components/dialog/RPreviewImage.vue'
+import { connectMetamask, connectWalletConnect } from 'utils/wallet'
 
 const localStore = useLocalStore()
+const walletStore = useWalletStore()
 
-const initAsyncData = async () => {
+const initAsyncData1 = async () => {
   // select network
   const windowNetworkId = await getWindowNetwork()
   setCurrentNetworkById(windowNetworkId)
@@ -36,21 +37,30 @@ const getNetworkList = () => {
     { id: 3, icon: '', name: 'Ethereum Testnet' },
     { id: 97, icon: '', name: 'BSC Testnet' },
   ]
-  initAsyncData()
 }
 getNetworkList()
 
-// listener ethereum event
-window.ethereum.on('chainChanged', chainId => {
-  const id = hexToNumber(chainId)
-  setCurrentNetworkById(id)
-  // window.location.reload()
+const walletType = computed(() => {
+  return walletStore.walletType
 })
-
-window.ethereum.on('accountsChanged', ([account]) => {
-  localStore.setUserAddress(account)
-  // window.location.reload()
-})
+const initWallet = async () => {
+  if (!walletType.value) {
+    // walletStore.setDialogVisible(true)
+    return
+  }
+  const chainId = walletStore.chainId
+  walletStore.setSelectChainId(chainId)
+  if (walletType.value === 1) {
+    await connectMetamask(chainId, true)
+  } else if (walletType.value === 2) {
+    if (chainId === 0) {
+      ElMessage.warning('Please select network!')
+      return
+    }
+    await connectWalletConnect(chainId, true)
+  }
+}
+initWallet()
 
 </script>
 
