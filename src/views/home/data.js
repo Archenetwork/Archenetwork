@@ -1,3 +1,60 @@
+// 0-4
+const statusDb = [
+  'Open for new games',
+  'Looking for scholarships',
+  'Seeking new friends',
+  'Just chilling',
+  'Do not disturb',
+]
+// 0-12
+const tagDb = [
+  'MMORPG',
+  'FPS',
+  'OPENWORLD',
+  'RPG',
+  'RTS',
+  'MOBA',
+  'SPG',
+  'RAC',
+  'ACT',
+  'AVG',
+  'SLG',
+  'SIM',
+  'EDU',
+]
+const avatarDb = [
+  '1.png',
+  '2.jpg',
+  '3.png',
+  '4.png',
+  '5.png',
+  '6.png',
+  '7.png',
+  '8.png',
+  '9.png',
+  '10.png',
+  '11.png',
+  '12.jpg',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.jpg',
+  '23.png',
+  '24.png',
+  '25.png',
+  '26.png',
+  '27.png',
+  '28.png',
+  '29.png',
+  '30.png',
+]
+
 export const bannerList = [
   {
     id: 1,
@@ -181,6 +238,73 @@ export const bannerList = [
 ]
 
 export const playerList = [
+  {
+    name: '0xCryptor',
+    avatar: '/pics/avatar/16.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[1],
+    tags: [tagDb[2], tagDb[1], tagDb[3]],
+  },
+  {
+    name: 'Christ',
+    avatar: '/pics/avatar/17.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[1],
+    tags: [tagDb[12], tagDb[11]],
+  },
+  {
+    name: 'Cliff',
+    avatar: '/pics/avatar/18.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[2],
+    tags: [tagDb[3], tagDb[5], tagDb[6]],
+  },
+  {
+    name: 'Dimok',
+    avatar: '/pics/avatar/19.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[3],
+    tags: [tagDb[4], tagDb[5], tagDb[7]],
+  },
+  {
+    name: 'DKOB',
+    avatar: '/pics/avatar/20.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[4],
+    tags: [tagDb[2], tagDb[8], tagDb[9]],
+  },
+  {
+    name: 'Guinox',
+    avatar: '/pics/avatar/21.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[3],
+    tags: [tagDb[10], tagDb[2], tagDb[11]],
+  },
+  {
+    name: 'harryho',
+    avatar: '/pics/avatar/22.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[2],
+    tags: [tagDb[4], tagDb[9], tagDb[6]],
+  },
+  {
+    name: 'Kustinski',
+    avatar: '/pics/avatar/23.png',
+    roi: 271,
+    badge: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    states: statusDb[4],
+    tags: [tagDb[3], tagDb[6], tagDb[1]],
+  },
+]
+
+export const playerList1 = [
   {
     id: 1,
     avatar: '/mock/player/1.png',

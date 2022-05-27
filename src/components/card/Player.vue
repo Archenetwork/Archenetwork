@@ -16,12 +16,12 @@ const props = defineProps({
       <div class="hd-content">
         <div class="name r-text-line-1">{{item.name}}</div>
         <div class="medals">
-          <img class="img" v-for="(medal, i) in item.medals" :src="medal" :key="i" alt="">
+          <img class="img" v-for="(badge, i) in item.badge" :src="badge" :key="i" alt="">
         </div>
       </div>
     </div>
     <div class="bd">
-      <div class="bd-title">OPEN FOR SCHALORSHIPS</div>
+      <div class="bd-title">{{item.states}}</div>
       <div class="bd-content">
         <span class="label">Average ROI</span>
         <div class="value-box">
