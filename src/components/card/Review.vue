@@ -20,7 +20,7 @@ const props = defineProps({
           <img class="avatar" :src="item.userAvatar" alt="">
           <div class="level"><span>L{{item.userLevel}}</span></div>
           <div class="text-box">
-            <div class="name">{{item.userName}}</div>
+            <div class="name r-text-line-1">{{item.userName}}</div>
             <div class="time">Play Since {{item.startTime}}</div>
           </div>
           <div class="follow-box">
@@ -36,7 +36,7 @@ const props = defineProps({
 <style lang="scss">
 .c-card-review {
   .a-box-shadow-inner-no-border {
-    padding: 24px;
+    padding: 20px;
     background: #3a3c42;
 
     .hd {
@@ -65,6 +65,8 @@ const props = defineProps({
       font-size: 16px;
       line-height: 24px;
       color: #b0babf;
+
+      @include multi-line-ellipsis(7);
     }
 
     .ft {
@@ -124,6 +126,7 @@ const props = defineProps({
 
       .text-box {
         flex: 1;
+        width: 0;
 
         .name {
           margin-bottom: 5px;

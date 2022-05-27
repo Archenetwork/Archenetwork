@@ -2,12 +2,14 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { LoginUsers, Users } from './data/user'
 import { Players } from './data/player'
+import { Reviews } from './data/review'
 import { notifyApiErrorInfo } from 'utils/notification'
 import useLisaStore from 'store/lisa'
 import { sortJson } from 'utils/func'
 
 const _Users = Users
 const _Players = Players
+const _Reviews = Reviews
 
 // let checkPageCurrentDelete = function (num) {
 //   let oldPage = Math.ceil(this.listPage.total / this.listPage.size)
@@ -45,60 +47,7 @@ export default {
       msg: 'failure',
     })
 
-    // login
-    mock.onPost('/login').reply(config => {
-      const { username, password } = JSON.parse(config.data)
-      return new Promise((resolve, reject) => {
-        let user = null
-        setTimeout(() => {
-          const hasUser = LoginUsers.some(u => {
-            if (u.username === username && u.password === password) {
-              user = JSON.parse(JSON.stringify(u))
-              user.password = undefined
-              return true
-            }
-          })
-
-          if (hasUser) {
-            resolve([200, { code: 200, msg: 'request success', user }])
-          } else {
-            resolve([200, { code: 500, msg: 'account or password is error' }])
-          }
-        }, 1000)
-      })
-    })
-
-    // get user info
-    mock.onGet(/\/users\/\d+/).reply(config => {
-      const id = Number(config.url.split('/users/')[1])
-      const user = _Users.find(u => u.id === id)
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            data: user,
-          }])
-        }, 1000)
-      })
-    })
-
-    // get user list
     mock.onGet('/users').reply(config => {
-      const mockUsers = _Users.filter(user => {
-        return true
-      })
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            items: mockUsers,
-          }])
-          // resolve([300, {
-          //   message: 'params error'
-          // }]);
-        }, 1000)
-      })
-    })
-
-    mock.onGet('/users/page').reply(config => {
       const { pageNo, pageSize } = config.params
       const limit = Number(pageSize)
       const current = Number(pageNo)
@@ -122,6 +71,44 @@ export default {
       limit = Number(limit)
       offset = Number(offset)
       let mockList = JSON.parse(JSON.stringify(_Players))
+      mockList = mockList.filter(x => {
+        let flag = true
+        if (search && !x.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+          flag = false
+        } else {
+          if (genre && genre !== x.genre) {
+            flag = false
+          } else {
+            if (devStatus && devStatus !== x.devStatus) {
+              flag = false
+            }
+          }
+        }
+        return flag
+      })
+      const total = mockList.length
+      if (orderType === 1) {
+        mockList = sortJson(mockList, 'createdTime', 'desc')
+      } else {
+        mockList = sortJson(mockList, 'roi', 'desc')
+      }
+      mockList = mockList.filter((u, index) => index < offset + limit && index >= offset)
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            items: mockList,
+          }])
+        }, 20)
+      })
+    })
+
+    mock.onGet('/reviews').reply(config => {
+      let { limit, offset, search = null, genre = null, devStatus = null, orderType = 1 } = config.params
+
+      limit = Number(limit)
+      offset = Number(offset)
+      let mockList = JSON.parse(JSON.stringify(_Reviews))
       mockList = mockList.filter(x => {
         let flag = true
         if (search && !x.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {

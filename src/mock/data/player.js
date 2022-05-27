@@ -15,7 +15,7 @@ for (let i = 1; i < 200; i++) {
     devStatus: Mock.Random.integer(1, 5),
     tags: ['Stable Coins', 'XSpend', 'Global'],
     medals: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
-    createdTime: Mock.Random.now(),
+    createdTime: Mock.Random.datetime(),
   }))
 }
 
