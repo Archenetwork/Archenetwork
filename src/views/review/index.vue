@@ -189,7 +189,7 @@ const initPage = () => {
           box-sizing: border-box;
           width: 33.3333%;
           padding-left: 20px;
-          margin-bottom: 50px;
+          margin-bottom: 30px;
         }
       }
     }

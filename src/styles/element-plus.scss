@@ -87,3 +87,13 @@
 }
 
 /* *************** icon end *************** */
+
+.el-loading-mask {
+  z-index: 1999;
+  background: rgb(26 32 36 / 90%) !important;
+  border-radius: 30px;
+
+  .el-loading-spinner {
+    display: none;
+  }
+}
