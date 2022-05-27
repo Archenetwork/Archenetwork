@@ -532,7 +532,7 @@ onUnmounted(() => {
         }
 
         .join-box {
-          padding: 5px 20px 0;
+          padding: 8px 20px 0;
 
           .btn {
             width: 100%;

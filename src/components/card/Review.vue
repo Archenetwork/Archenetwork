@@ -14,7 +14,7 @@ const props = defineProps({
           <span class="game-name">{{item.gameName}}</span>
         </div>
         <div class="bd">
-          {{item.gameDesc}}
+          {{item.text}}
         </div>
         <div class="ft">
           <img class="avatar" :src="item.userAvatar" alt="">
@@ -25,7 +25,7 @@ const props = defineProps({
           </div>
           <div class="follow-box">
             <svg-icon class="icon" name="follow"></svg-icon>
-            <span class="count">{{item.followCount}}</span>
+            <span class="count">{{item.likeCount}}</span>
           </div>
         </div>
       </div>
