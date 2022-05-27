@@ -1,9 +1,7 @@
 <script setup>
-import { computed, watch, onMounted, ref } from 'vue'
-import { checkInstallMetamask } from '@/utils/func'
-// import useLocalStore from '@/store/local'
+import { computed, onMounted, ref } from 'vue'
 import useWalletStore from '@/store/wallet'
-import { ElConfigProvider, ElMessage, ElNotification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { throttle, getChainList } from 'utils/func'
 import { connectMetamask, connectWalletConnect, switchChain } from 'utils/wallet'
@@ -448,7 +446,7 @@ const closeAllPopup = () => {
           }
 
           .user-name {
-            max-width: 75px;
+            max-width: 80px;
             margin-left: 6px;
           }
 

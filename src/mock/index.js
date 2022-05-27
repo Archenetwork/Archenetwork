@@ -1,10 +1,13 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { LoginUsers, Users, getUserId } from './data/user'
+import { LoginUsers, Users } from './data/user'
+import { Players } from './data/player'
 import { notifyApiErrorInfo } from 'utils/notification'
 import useLisaStore from 'store/lisa'
+import { sortJson } from 'utils/func'
 
-let _Users = Users
+const _Users = Users
+const _Players = Players
 
 // let checkPageCurrentDelete = function (num) {
 //   let oldPage = Math.ceil(this.listPage.total / this.listPage.size)
@@ -95,26 +98,6 @@ export default {
       })
     })
 
-    // get user list (page)
-    // mock.onGet('/users/page').reply(config => {
-    //   let { size, current } = config.params
-    //   let mockUsers = JSON.parse(JSON.stringify(_Users))
-    //   let total = mockUsers.length
-    //   let pageCount = Math.ceil(total / size)
-    //   if (current > pageCount) {
-    //     current = pageCount
-    //   }
-    //   mockUsers = mockUsers.filter((u, index) => index < size * current && index >= size * (current - 1))
-    //   return new Promise((resolve, reject) => {
-    //     setTimeout(() => {
-    //       resolve([200, {
-    //         current: current,
-    //         total: total,
-    //         items: mockUsers
-    //       }])
-    //     }, 1000)
-    //   })
-    // })
     mock.onGet('/users/page').reply(config => {
       const { pageNo, pageSize } = config.params
       const limit = Number(pageSize)
@@ -133,97 +116,48 @@ export default {
       })
     })
 
-    // delete user
-    mock.onDelete(/\/users\/\d+/).reply(config => {
-      const id = config.url.split('/users/')[1]
-      _Users = _Users.filter(u => u.id !== Number(id))
-      console.log('_Users', _Users)
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: 'delete success',
-          }])
-        }, 500)
-      })
-    })
+    mock.onGet('/players').reply(config => {
+      let { limit, offset, search = null, genre = null, devStatus = null, orderType = 1 } = config.params
 
-    // batch delete user
-    mock.onGet('/users/batchremove').reply(config => {
-      let { ids } = config.params
-      ids = ids.split(',')
-      _Users = _Users.filter(u => !ids.includes(u.id))
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: 'delete success',
-          }])
-        }, 500)
-      })
-    })
-
-    // update user
-    mock.onPut(/\/users\/\d+/).reply(config => {
-      const id = config.url.split('/users/')[1]
-      const { name, addr, age, birth, sex } = JSON.parse(config.data)
-      _Users.some(u => {
-        if (u.id === id) {
-          u.name = name
-          u.addr = addr
-          u.age = age
-          u.birth = birth
-          u.sex = sex
-          return true
+      limit = Number(limit)
+      offset = Number(offset)
+      let mockList = JSON.parse(JSON.stringify(_Players))
+      mockList = mockList.filter(x => {
+        let flag = true
+        if (search && !x.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+          flag = false
+        } else {
+          if (genre && genre !== x.genre) {
+            flag = false
+          } else {
+            if (devStatus && devStatus !== x.devStatus) {
+              flag = false
+            }
+          }
         }
-        return false
+        return flag
       })
+      const total = mockList.length
+      if (orderType === 1) {
+        mockList = sortJson(mockList, 'createdTime', 'desc')
+      } else {
+        mockList = sortJson(mockList, 'roi', 'desc')
+      }
+      mockList = mockList.filter((u, index) => index < offset + limit && index >= offset)
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
-            code: 200,
-            msg: 'update success',
+            total: total,
+            items: mockList,
           }])
-        }, 500)
-      })
-    })
-
-    // add user
-    mock.onPost('/users').reply(config => {
-      const data = JSON.parse(config.data)
-      data.id = getUserId()
-      _Users.push(data)
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: 'add success',
-          }])
-        }, 500)
+        }, 20)
       })
     })
   },
 }
 
-// white list
-const noAuthWhiteList = [
-  '/apis/core/v1/login',
-  '/apis/core/v1/sign_up',
-  '/apis/core/v1/sign_up_code',
-]
-
 // request interceptors
 request.interceptors.request.use(config => {
-  const lisaStore = useLisaStore()
-  if (lisaStore.token) {
-    config.headers.Authorization = `Bearer ${lisaStore.token}`
-  } else {
-    const url = config.url || ''
-    if (!noAuthWhiteList.includes(url)) {
-      toLogin()
-      return Promise.reject(new Error('not login'))
-    }
-  }
   return config
 }, error => {
   return Promise.reject(error)
@@ -235,10 +169,6 @@ request.interceptors.response.use(response => {
 }, error => {
   let msg = ''
   if (error.response) {
-    if (error.response.status === 401) { // no login
-      toLogin()
-      return
-    }
     if (error.response.data && error.response.data.message) {
       msg = error.response.data.message
     } else {
@@ -247,34 +177,16 @@ request.interceptors.response.use(response => {
   } else {
     msg = error.message
   }
-  if (msg !== 'not login') {
-    notifyApiErrorInfo(msg)
-  }
   // console.log('api response error: ', msg)
   console.log('api response error: ', error)
   return Promise.reject(msg)
 })
 
-export const toLogin = () => {
-  const lisaStore = useLisaStore()
-  lisaStore.setLogout()
-  window.location.href = '#/login'
-}
-
 export const _get = (url, query) => {
   return request.get(url, { params: query })
 }
-export const _download = (url, query) => {
-  return request.get(url, { params: query, responseType: 'blob' })
-}
-
 export const _post = (url, body) => {
   return request.post(url, body)
-}
-
-export const _upload = (url, data, config = null) => {
-  // return request.post(url, body, { headers: { 'Content-Type': 'multipart/form-data' } })
-  return request.post(url, data, { headers: { 'Content-Type': 'multipart/form-data' }, ...config })
 }
 
 export const _patch = (url, body) => {
