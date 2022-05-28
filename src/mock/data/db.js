@@ -101,3 +101,18 @@ export const badgeDb = [
   '/mock/badge/34.png',
   '/mock/badge/35.png',
 ]
+
+export const gameImageDb = [
+  { id: 1, img: '/mock/game/1.jpg' },
+  { id: 2, img: '/mock/game/2.png' },
+  { id: 3, img: '/mock/game/3.png' },
+  { id: 4, img: '/mock/game/4.jpeg' },
+  { id: 5, img: '/mock/game/5.png' },
+  { id: 6, img: '/mock/game/6.jpg' },
+  { id: 7, img: '/mock/game/7.webp' },
+  { id: 8, img: '/mock/game/8.webp' },
+  { id: 9, img: '/mock/game/9.webp' },
+  { id: 10, img: '/mock/game/10.webp' },
+  { id: 11, img: '/mock/game/11.webp' },
+  { id: 12, img: '/mock/game/12.webp' },
+]

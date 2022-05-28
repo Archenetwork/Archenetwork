@@ -104,22 +104,18 @@ export default {
     })
 
     mock.onGet('/reviews').reply(config => {
-      let { limit, offset, search = null, genre = null, devStatus = null, orderType = 1 } = config.params
+      let { limit, offset, search = null, genre = null, orderType = 1 } = config.params
 
       limit = Number(limit)
       offset = Number(offset)
       let mockList = JSON.parse(JSON.stringify(_Reviews))
       mockList = mockList.filter(x => {
         let flag = true
-        if (search && !x.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+        if (search && !x.gameName.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
           flag = false
         } else {
-          if (genre && genre !== x.genre) {
+          if (genre && !x.tags.includes(genre)) {
             flag = false
-          } else {
-            if (devStatus && devStatus !== x.devStatus) {
-              flag = false
-            }
           }
         }
         return flag

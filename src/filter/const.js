@@ -12,19 +12,3 @@ export const employeeStatusData = {
   ENABLE: 'enable',
   default: '',
 }
-
-// contractStatusList
-export const contractStatusData = {
-  0: 'Binding',
-  1: 'Unbound',
-  2: 'Used',
-  default: '',
-}
-
-export const gamePlatformData = {
-  1: 'IOS',
-  2: 'WEB',
-  3: 'Android',
-  4: 'Windows',
-  5: 'Mac',
-}
