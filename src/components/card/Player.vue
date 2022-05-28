@@ -42,10 +42,10 @@ const props = defineProps({
 
     .avatar-box-wrap {
       box-sizing: border-box;
-      width: 94px;
-      height: 94px;
+      width: 92px;
+      height: 92px;
       margin-right: 14px;
-      border: 6px solid rgb(0 0 0 / 24%);
+      border: 5px solid rgb(0 0 0 / 24%);
       border-radius: 20px;
 
       .avatar-box-inner {
@@ -85,6 +85,7 @@ const props = defineProps({
           width: 40px;
           height: 40px;
           margin-right: 8px;
+          object-fit: contain;
 
           &:last-child {
             margin-right: 0;

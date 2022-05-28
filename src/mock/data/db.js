@@ -90,16 +90,23 @@ export const badgeDb = [
   '/mock/badge/13.png',
   '/mock/badge/14.png',
   '/mock/badge/15.png',
+  '/mock/badge/16.png',
+  '/mock/badge/17.png',
+  '/mock/badge/18.png',
   '/mock/badge/21.png',
   '/mock/badge/22.png',
   '/mock/badge/23.png',
   '/mock/badge/24.png',
   '/mock/badge/25.png',
+  '/mock/badge/26.png',
+  '/mock/badge/27.png',
+  '/mock/badge/28.png',
   '/mock/badge/31.png',
   '/mock/badge/32.png',
   '/mock/badge/33.png',
   '/mock/badge/34.png',
   '/mock/badge/35.png',
+  '/mock/badge/36.png',
 ]
 
 export const gameImageDb = [

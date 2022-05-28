@@ -7,15 +7,49 @@ const getAvatar = (i) => {
 }
 const getTags = () => {
   const n = Mock.Random.integer(2, 3)
-  return (new Array(n)).fill(1).map(x => {
-    return Mock.Random.pick(tagDb)
-  })
+  const res = []
+  for (let i = 0; i < n; i++) {
+    let r = Mock.Random.pick(tagDb)
+    if (res.includes(r)) {
+      r = Mock.Random.pick(tagDb)
+      if (res.includes(r)) {
+        r = Mock.Random.pick(tagDb)
+        if (res.includes(r)) {
+          r = Mock.Random.pick(tagDb)
+          if (res.includes(r)) {
+            r = Mock.Random.pick(tagDb)
+          }
+        }
+      }
+    }
+    res.push(r)
+  }
+  return res
 }
 // 0-14
 const getBadges = () => {
-  return (new Array(3)).fill(1).map(x => {
-    return Mock.Random.pick(badgeDb)
-  })
+  // return (new Array(3)).fill(1).map(x => {
+  //   return Mock.Random.pick(badgeDb)
+  // })
+  const n = 3
+  const res = []
+  for (let i = 0; i < n; i++) {
+    let r = Mock.Random.pick(badgeDb)
+    if (res.includes(r)) {
+      r = Mock.Random.pick(badgeDb)
+      if (res.includes(r)) {
+        r = Mock.Random.pick(badgeDb)
+        if (res.includes(r)) {
+          r = Mock.Random.pick(badgeDb)
+          if (res.includes(r)) {
+            r = Mock.Random.pick(badgeDb)
+          }
+        }
+      }
+    }
+    res.push(r)
+  }
+  return res
 }
 
 const Players = []
