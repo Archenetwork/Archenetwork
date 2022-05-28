@@ -24,11 +24,11 @@ const filterList = [
     iconType: 'localSvg',
     list: [
       { value: '', name: 'ALL - GENRE' },
-      { value: 1, name: 'Action', icon: 'genre-action' },
-      { value: 2, name: 'Adventure', icon: 'genre-adventure' },
-      { value: 3, name: 'Arcade', icon: 'genre-arcade' },
-      { value: 4, name: 'Art', icon: 'genre-art' },
-      { value: 5, name: 'Augmented-Reality', icon: 'genre-ar' },
+      { value: 'ACT', name: 'ACT', icon: 'genre-action' },
+      { value: 'AVG', name: 'AVG', icon: 'genre-adventure' },
+      { value: 'EDU', name: 'EDU', icon: 'genre-arcade' },
+      { value: 'FPS', name: 'FPS', icon: 'genre-art' },
+      { value: 'RPG', name: 'RPG', icon: 'genre-ar' },
     ],
   },
   {
@@ -39,11 +39,11 @@ const filterList = [
     iconType: 'localSvg',
     list: [
       { value: '', name: 'ALL - STATUS' },
-      { value: 1, name: 'Live', icon: 'status-live' },
-      { value: 2, name: 'Presale', icon: 'status-presale' },
-      { value: 3, name: 'Alpha', icon: 'status-alpha' },
-      { value: 4, name: 'Beta', icon: 'status-beta' },
-      { value: 5, name: 'Development', icon: 'status-development' },
+      { value: 1, name: 'Open for new games', icon: 'status-live' },
+      { value: 2, name: 'Looking for scholarships', icon: 'status-presale' },
+      { value: 3, name: 'Seeking new friends', icon: 'status-alpha' },
+      { value: 4, name: 'Just chilling', icon: 'status-beta' },
+      { value: 5, name: 'Do not disturb', icon: 'status-development' },
     ],
   },
 ]

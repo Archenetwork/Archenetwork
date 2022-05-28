@@ -76,7 +76,7 @@ export default {
         if (search && !x.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
           flag = false
         } else {
-          if (genre && genre !== x.genre) {
+          if (genre && !x.tags.includes(genre)) {
             flag = false
           } else {
             if (devStatus && devStatus !== x.devStatus) {

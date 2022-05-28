@@ -5,7 +5,6 @@ import { bannerList } from './data'
 import useCommonStore from 'store/common'
 
 const commonStore = useCommonStore()
-
 const list = ref(bannerList.map(x => {
   x.countdown = parseInt(((new Date(x.endTime)).getTime() - (new Date()).getTime()) / 1000)
   x.countdownObj = getCountdownObj(x.countdown)
@@ -42,11 +41,13 @@ onUnmounted(() => {
         <span>Season 1</span>P2E billboard
       </div>
       <div class="right">
-
         <!-- <div class="btn">Join competition</div> -->
       </div>
     </div>
     <div class="content">
+      <!-- <div>
+          <img style="width: 30px;height: 30px;" :src="`/mock/avatar/${item}`" v-for="(item,i ) in avatarDb" alt="">
+        </div> -->
       <div class="card" v-for="item in list" :key="item.id">
         <div class="card-header">
           <img class="logo" :src="item.logo" alt="">

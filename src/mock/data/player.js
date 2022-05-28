@@ -1,20 +1,37 @@
 import Mock from 'mockjs'
+import { statusDb, avatarDb, tagDb, badgeDb } from './db'
+
+// 0-55
+const getAvatar = (i) => {
+  return `/mock/avatar/${avatarDb[i]}`
+}
+const getTags = () => {
+  const n = Mock.Random.integer(2, 3)
+  return (new Array(n)).fill(1).map(x => {
+    return Mock.Random.pick(tagDb)
+  })
+}
+// 0-14
+const getBadges = () => {
+  return (new Array(3)).fill(1).map(x => {
+    return Mock.Random.pick(badgeDb)
+  })
+}
 
 const Players = []
 
-for (let i = 1; i < 200; i++) {
-  // const avatar = Mock.Random.pick(['1.png', '2.avif', '3.png'])
-
+for (let i = 1; i < 56; i++) {
+  const status = Mock.Random.integer(1, 5)
   Players.push(Mock.mock({
     id: i,
-    // avatar: `/mock/player/${avatar}`,
-    avatar: Mock.Random.dataImage(),
+    avatar: getAvatar(i),
     name: Mock.Random.name(),
-    roi: Mock.Random.integer(80, 300),
+    roi: Mock.Random.integer(40, 300),
     genre: Mock.Random.integer(1, 5),
-    devStatus: Mock.Random.integer(1, 5),
-    tags: ['Stable Coins', 'XSpend', 'Global'],
-    medals: ['/mock/medal/4.png', '/mock/medal/6.png', '/mock/medal/8.png'],
+    devStatus: status,
+    devStatusLabel: statusDb[status - 1],
+    tags: getTags(),
+    badge: getBadges(),
     createdTime: Mock.Random.datetime(),
   }))
 }

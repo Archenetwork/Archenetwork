@@ -21,7 +21,7 @@ const props = defineProps({
       </div>
     </div>
     <div class="bd">
-      <div class="bd-title">{{item.states}}</div>
+      <div class="bd-title">{{item.devStatusLabel}}</div>
       <div class="bd-content">
         <span class="label">Average ROI</span>
         <div class="value-box">
