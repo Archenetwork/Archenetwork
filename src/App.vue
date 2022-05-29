@@ -1,44 +1,15 @@
 <script setup>
-import { computed, ref } from 'vue'
-import { getWindowNetwork, getUserAddress } from 'api/ethereum'
-import useLocalStore from '@/store/local'
+import { computed } from 'vue'
 import useWalletStore from '@/store/wallet'
+import useCommonStore from '@/store/common'
 import { ElConfigProvider, ElMessage } from 'element-plus'
 import en from 'element-plus/lib/locale/lang/en'
 import RPreviewImage from 'components/dialog/RPreviewImage.vue'
 import { connectMetamask, connectWalletConnect } from 'utils/wallet'
+import { getUser, addUser } from 'api/http/user'
 
-const localStore = useLocalStore()
+const commonStore = useCommonStore()
 const walletStore = useWalletStore()
-
-const initAsyncData1 = async () => {
-  // select network
-  const windowNetworkId = await getWindowNetwork()
-  setCurrentNetworkById(windowNetworkId)
-
-  // select account
-  const userAddress = await getUserAddress()
-  localStore.setUserAddress(userAddress)
-}
-
-const setCurrentNetworkById = windowId => {
-  const currentNetworkId = localStore.network.id
-  if (windowId !== currentNetworkId) {
-    let item = networkList.value.find(x => x.id === windowId)
-    if (!item) {
-      item = { id: 0, name: 'NetError', icon: 'error' }
-    }
-    localStore.setNetwork(item)
-  }
-}
-const networkList = ref([])
-const getNetworkList = () => {
-  networkList.value = [
-    { id: 3, icon: '', name: 'Ethereum Testnet' },
-    { id: 97, icon: '', name: 'BSC Testnet' },
-  ]
-}
-getNetworkList()
 
 const walletType = computed(() => {
   return walletStore.walletType
@@ -59,6 +30,12 @@ const initWallet = async () => {
     }
     await connectWalletConnect(chainId, true)
   }
+  let userInfo = await getUser(walletStore.account)
+  if (userInfo.code !== 200) {
+    await addUser({ walletAddress: walletStore.account })
+    userInfo = await getUser(walletStore.account)
+  }
+  commonStore.setUserInfo(userInfo.data || null)
 }
 initWallet()
 

@@ -1,55 +1,44 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import useCommonStore from 'store/common'
 import Slider from './Slider.vue'
 
-const userInfo = ref({
-  id: '819020384',
+const commonStore = useCommonStore()
+
+const userInfo1 = ref({
+  name: '0xpi314',
+  id: '159265358',
   address: '0x818a7DBF224F2a3ECa8D8bfBd809e0549bF407EB',
   shortAddress: '0x818a...07EB',
-  tags: ['FPS', 'AVG', 'OPENWORLD'],
-  name: 'Raul',
+  tags: ['MOBA', 'EDU', 'SPG'],
   rank: 66,
   price: 30,
   avatar: '/mock/avatar/20.png',
-  gameCount: 99,
-  averageRoi: 134,
-  friendCount: 90,
-  state: 'Open for schalorships',
-  wishList: ['/mock/game1/1.png', '/mock/game1/2.png', '/mock/game1/3.png'],
+  gameCount: 14,
+  averageRoi: 147,
+  friendCount: 7,
+  state: 'Just chilling',
+  wishList: ['/mock/game/13.webp', '/mock/game/14.webp', '/mock/game/15.webp'],
   badges: ['/mock/badge/11.png', '/mock/badge/27.png',
     '/mock/badge/24.png', '/mock/badge/36.png',
     '/mock/badge/31.png', '/mock/badge/18.png'],
 })
 
-const item = {
-  id: 1,
-  gameLogo: '/mock/game1/1.png',
-  gameName: 'Axie Infinity',
-  startTime: '2022.05.22',
-  roi: 98,
-  investment: 57,
-  star: 45626,
-  tokenLogo: '/mock/token/slp.png',
-  assets: ['/mock/asset/1.png', '/mock/asset/1.png', '/mock/asset/1.png'],
-  badges: ['/mock/badge/18.png', '/mock/badge/17.png', '/mock/badge/13.png', '/mock/badge/36.png'],
-  review: {
-    avatar: '/mock/avatar/1.png',
-    name: 'Maximo Yrysnk',
-    likeCount: 887,
-    desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.",
-  },
-}
+const userInfo = computed(() => {
+  return commonStore.userInfo
+})
+
 </script>
 
 <template>
   <div class="a-container">
-    <div class="me-banner">
+    <div class="user-banner">
       <div class="banner-left">
-        <div class="base-info">
+        <div class="base-info" v-if="userInfo">
           <img class="avatar" :src="userInfo.avatar" alt="">
           <div class="text">
             <div class="name">{{userInfo.name}}</div>
-            <div class="id">UID {{userInfo.id}}</div>
+            <div class="id">UID {{userInfo.uid}}</div>
             <div class="address-box">
               <svg-icon class="icon" name="wallet"></svg-icon>
               <span>{{userInfo.shortAddress}}</span>
@@ -57,10 +46,10 @@ const item = {
             </div>
           </div>
         </div>
-        <div class="tags">
+        <div class="tags" v-if="userInfo">
           <div class="tag" v-for="(tag, i) in userInfo.tags" :key="i">{{tag}}</div>
         </div>
-        <div class="line">
+        <div class="line" v-if="userInfo">
           <div class="item">
             <span class="label">My games</span>
             <span class="value-number">{{userInfo.gameCount}}</span>
@@ -116,7 +105,7 @@ const item = {
 </template>
 
 <style lang="scss">
-.me-banner {
+.user-banner {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -264,6 +253,7 @@ const item = {
             margin-right: 20px;
             margin-bottom: 24px;
             cursor: pointer;
+            border-radius: 10px;
           }
         }
 

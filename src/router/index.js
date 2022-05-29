@@ -22,9 +22,24 @@ const appRoute = {
       component: () => import('@/views/review/index.vue'),
     },
     {
-      path: 'me',
-      name: 'Me',
-      component: () => import('@/views/me/index.vue'),
+      path: 'user',
+      name: 'User',
+      component: () => import('@/views/user/index.vue'),
+    },
+    {
+      path: 'game',
+      name: 'Game',
+      component: () => import('@/views/game/index.vue'),
+    },
+    {
+      path: 'setting',
+      name: 'Setting',
+      component: () => import('@/views/setting/index.vue'),
+    },
+    {
+      path: 'medal',
+      name: 'Medal',
+      component: () => import('@/views/medal/index.vue'),
     },
     {
       path: '/:pathMatch(.*)*',

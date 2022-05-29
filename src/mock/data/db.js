@@ -122,4 +122,7 @@ export const gameImageDb = [
   { id: 10, img: '/mock/game/10.webp' },
   { id: 11, img: '/mock/game/11.webp' },
   { id: 12, img: '/mock/game/12.webp' },
+  { id: 13, img: '/mock/game/13.webp' },
+  { id: 14, img: '/mock/game/14.webp' },
+  { id: 15, img: '/mock/game/15.webp' },
 ]

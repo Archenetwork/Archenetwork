@@ -1,10 +1,13 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import useClipboard from 'vue-clipboard3'
 import useWalletStore from '@/store/wallet'
+import useCommonStore from '@/store/common'
 import { ElMessage } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { throttle, getChainList } from 'utils/func'
 import { connectMetamask, connectWalletConnect, switchChain } from 'utils/wallet'
+import { getUser, addUser } from 'api/http/user'
 
 // import { getUser, addUser } from 'api/http/user'
 
@@ -12,11 +15,11 @@ const router = useRouter()
 const route = useRoute()
 
 const walletStore = useWalletStore()
-// const localStore = useLocalStore()
-// const commonStore = useCommonStore()
-// const userInfo = computed(() => {
-//   return commonStore.userInfo
-// })
+const commonStore = useCommonStore()
+
+const userInfo = computed(() => {
+  return commonStore.userInfo
+})
 
 const menuList = [
   { id: 1, name: 'HOME', routerName: 'Home' },
@@ -62,6 +65,7 @@ const goPage = (name) => {
   if (currentMenu.value !== name) {
     currentMenu.value = name
     router.push({ name: name })
+    closeAllPopup()
   }
 }
 
@@ -90,7 +94,7 @@ const handleChangeWallet = async (item) => {
     try {
       const chainId = walletStore.selectChainId
       if (item.id === 1) {
-        await connectMetamask()
+        await connectMetamask(chainId)
       } else if (item.id === 2) {
         if (chainId === 0) {
           ElMessage.warning('Please select network!')
@@ -98,6 +102,12 @@ const handleChangeWallet = async (item) => {
         }
         await connectWalletConnect(chainId)
       }
+      let userInfo = await getUser(walletStore.account)
+      if (userInfo.code !== 200) {
+        await addUser({ walletAddress: walletStore.account })
+        userInfo = await getUser(walletStore.account)
+      }
+      commonStore.setUserInfo(userInfo.data || null)
     } catch (err) {
       console.log('connect wallet error:', err)
     }
@@ -139,6 +149,32 @@ const closeAllPopup = () => {
   walletVisible.value = false
   networkVisible.value = false
 }
+
+const { toClipboard } = useClipboard()
+const handleCopy = () => {
+  toClipboard(walletStore.account).then(res => {
+    ElMessage.success('Copy Success')
+  })
+}
+
+const accountMenuList = ref([
+  { icon: 'account-menu-user', routerName: 'User', name: 'User Center' },
+  { icon: 'account-menu-medal', routerName: 'Medal', name: 'My Medals' },
+  { icon: 'account-menu-game', routerName: 'Game', name: 'My Games' },
+  { icon: 'account-menu-setting', routerName: 'Setting', name: 'Setting' },
+])
+
+const handleLogout = async () => {
+  walletVisible.value = false
+  if (window.walletInstance) {
+    await window.walletInstance.disconnect()
+  }
+  if (['User', 'Medal', 'Game', 'Setting'].includes(currentMenu.value)) {
+    window.location.href = '/'
+  } else {
+    window.location.reload()
+  }
+}
 </script>
 
 <template>
@@ -166,8 +202,8 @@ const closeAllPopup = () => {
           </div>
           <!-- userInfo -->
           <div class="user-info" v-else @click="handleChangeWalletVisible(true)">
-            <div class="user-avatar">
-              <img src="/images/avatar.png" alt="">
+            <div class="user-avatar" v-if="userInfo">
+              <img :src="userInfo?.avatar" alt="">
             </div>
             <div class="user-name r-text-line-1">{{walletStore.shortAccount}}</div>
             <div class="arrow">
@@ -175,15 +211,43 @@ const closeAllPopup = () => {
             </div>
           </div>
           <!--connect Popup -->
-          <r-popup v-model="walletVisible" :top="55" :width="280">
-            <template #top>CONNECT WALLET</template>
-            <template #center>
-              <div class="item" :class="{'active': item.id === walletType}" v-for="item in walletList" :key="item.id" @click="handleChangeWallet(item)">
-                <svg-icon class="item-icon" :name="item.icon + (item.id === walletType ? '-selected' : '')"></svg-icon>
-                <div class="item-name">{{item.name}}</div>
+          <r-popup v-model="walletVisible" :top="55" :width="280" :closeTop="true">
+            <template #top>
+              <span v-if="!account">CONNECT WALLET</span>
+              <div v-else class="user-box">
+                <div class="avatar">
+                  <img class="img" :src="userInfo?.avatar" alt="">
+                  <div class="level">L{{userInfo?.levelName}}</div>
+                </div>
+                <div class="info">
+                  <span class="name">{{userInfo?.username}}</span>
+                  <div class="address" @click="handleCopy">
+                    <span>{{walletStore.shortAccount}}</span>
+                    <svg-icon class="copy" name="copy"></svg-icon>
+                  </div>
+                </div>
               </div>
             </template>
-            <template #bottom>I don’t have a wallet</template>
+            <template #center>
+              <template v-if="!account">
+                <div class="item" :class="{'active': item.id === walletType}" v-for="item in walletList" :key="item.id" @click="handleChangeWallet(item)">
+                  <svg-icon class="item-icon" :name="item.icon + (item.id === walletType ? '-selected' : '')"></svg-icon>
+                  <div class="item-name">{{item.name}}</div>
+                </div>
+              </template>
+              <div v-else>
+                <div class="item item-menu" :class="{'active': item.routerName === currentMenu}" v-for="item in accountMenuList" :key="item.id" @click="goPage(item.routerName)">
+                  <svg-icon class="item-icon" :name="item.icon + (item.routerName === currentMenu ? '-selected' : '')"></svg-icon>
+                  <div class="item-name">{{item.name}}</div>
+                </div>
+              </div>
+            </template>
+            <template #bottom>
+              <span v-if="!account">I don’t have a wallet</span>
+              <div v-else class="bottom-box">
+                <div class="logout-btn" @click="handleLogout">Log out</div>
+              </div>
+            </template>
           </r-popup>
         </div>
 
@@ -446,7 +510,7 @@ const closeAllPopup = () => {
           }
 
           .user-name {
-            max-width: 80px;
+            max-width: 95px;
             margin-left: 6px;
           }
 
@@ -479,13 +543,116 @@ const closeAllPopup = () => {
             margin-right: 10px;
           }
 
-          .item-name{
+          .item-name {
+          }
+        }
 
+        .item-menu {
+          color: #5b6871;
+          border: 0;
+
+          &:hover {
+            color: #fff;
+            background: #1a2024;
           }
         }
 
         .active {
+          font-weight: 600;
+          color: #fff;
           background: #1a2024;
+        }
+
+        .user-box {
+          display: flex;
+          align-items: center;
+
+          .avatar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 76px;
+            height: 76px;
+            background-color: #fff;
+            border-radius: 50%;
+
+            .img {
+              width: 64px;
+              height: 64px;
+              margin-right: 0 !important;
+              border: 1px solid #957851;
+              border-radius: 50%;
+              object-fit: cover;
+              box-shadow: 0 1px 2px 1px rgb(0 0 0 / 40%) inset;
+            }
+
+            .level {
+              position: absolute;
+              top: 10px;
+              right: 0;
+              box-sizing: border-box;
+              width: 40px;
+              padding: 5px;
+              clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+              font-family: Inter;
+              font-size: 14px;
+              font-style: italic;
+              font-weight: 900;
+              color: #fff;
+              text-align: center;
+              background-color: #3b384e;
+              transform: translate(15%, -50%);
+            }
+          }
+
+          .info {
+            margin-left: 10px;
+
+            .name {
+              font-family: Inter;
+              font-size: 24px;
+              font-style: normal;
+              font-weight: bold;
+              line-height: 29px;
+              color: #fff;
+            }
+
+            .address {
+              display: flex;
+              align-items: center;
+              margin-top: 6px;
+              font-family: Inter;
+              font-size: 12px;
+              font-weight: bold;
+              line-height: 15px;
+              color: #0038ff;
+              cursor: pointer;
+
+              .copy {
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+
+        .bottom-box {
+          padding-top: 20px;
+          border-top: 1px solid rgb(255 255 255 / 16%);
+
+          .logout-btn {
+            box-sizing: border-box;
+            width: 100%;
+            height: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 38px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #fff;
+            border-radius: 20px;
+          }
         }
       }
 

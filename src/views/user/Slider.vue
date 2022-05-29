@@ -7,61 +7,64 @@ const list = ref([
     id: 1,
     gameLogo: '/mock/game1/1.png',
     gameName: 'Axie Infinity',
-    startTime: '2022.05.22',
-    roi: 98,
-    investment: 57,
-    star: 45626,
+    startTime: '2021.10.13',
+    roi: 114,
+    investment: 6790,
+    calmed: 14531,
     tokenLogo: '/mock/token/slp.png',
-    assets: ['/mock/asset/1.png', '/mock/asset/1.png', '/mock/asset/1.png'],
+    tokenName: 'SLP',
+    assets: ['/mock/asset/11.png', '/mock/asset/12.png', '/mock/asset/13.png'],
     badges: ['/mock/badge/18.png', '/mock/badge/17.png', '/mock/badge/13.png', '/mock/badge/16.png'],
     review: {
       avatar: '/mock/avatar/1.png',
       name: 'Maximo Yrysnk',
       likeCount: 887,
-      desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.",
+      desc: 'Axie Infinity is a Pokémon-inspired digital pet universe where anyone can earn tokens through skillful gameplay and contributions to the ecosystem. Players can fight, collect, grow and build a land kingdom for their pets. I think the only drawback is the few languages for users.',
     },
   },
   {
     id: 2,
     gameLogo: '/mock/game1/2.png',
     gameName: 'Stepn',
-    startTime: '2022.05.22',
-    roi: 98,
-    investment: 57,
-    star: 45626,
+    startTime: '2022.03.14',
+    roi: 179,
+    investment: 943,
+    calmed: 2631,
+    tokenName: 'GST',
     tokenLogo: '/mock/token/gst.webp',
-    assets: ['/mock/asset/1.png', '/mock/asset/1.png', '/mock/asset/1.png'],
+    assets: ['/mock/asset/21.png', '/mock/asset/22.png', '/mock/asset/23.png'],
     badges: ['/mock/badge/21.png', '/mock/badge/22.png', '/mock/badge/26.png', '/mock/badge/28.png'],
     review: {
-      avatar: '/mock/avatar/1.png',
-      name: 'Maximo Yrysnk',
+      avatar: '/mock/avatar/21.png',
+      name: 'Guinox',
       likeCount: 887,
-      desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.",
+      desc: 'I start with Stepn because I heard it provide a decent earning, but since I have been running about a month my propose changed, now I realized that Stepn do help me living a healthy life, I don’t care about the earnings anymore, all I care about is did I run today. Why spend money in gym? You should try move to earn.',
     },
   },
   {
     id: 3,
     gameLogo: '/mock/game1/3.png',
     gameName: 'Let me speak',
-    startTime: '2022.05.22',
-    roi: 98,
-    investment: 57,
-    star: 45626,
+    startTime: '2022.03.20',
+    roi: 97,
+    investment: 8734,
+    calmed: 17206,
+    tokenName: 'LS',
     tokenLogo: '/mock/token/ls.png',
-    assets: ['/mock/asset/1.png', '/mock/asset/1.png', '/mock/asset/1.png'],
+    assets: ['/mock/asset/31.png', '/mock/asset/32.png', '/mock/asset/33.png'],
     badges: ['/mock/badge/33.png', '/mock/badge/34.png', '/mock/badge/35.png', '/mock/badge/36.png'],
     review: {
-      avatar: '/mock/avatar/1.png',
-      name: 'Maximo Yrysnk',
+      avatar: '/mock/avatar/13.png',
+      name: 'Kustinski',
       likeCount: 887,
-      desc: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.",
+      desc: 'Well, when everything comes to x to earn, you got say is a good motivate to do x. Learning a language can be hard sometimes but reward with money and make it like a game, everyone would like to try.',
     },
   },
 ])
 
 let swiper = null
 const initSwiper = () => {
-  swiper = new Swiper('.me-banner-swiper .swiper-container', {
+  swiper = new Swiper('.user-banner-swiper .swiper-container', {
     modules: [EffectCards, Navigation],
     effect: 'cards',
     spaceBetween: 30,
@@ -73,32 +76,18 @@ const initSwiper = () => {
       transformEl: null,
     },
     navigation: {
-      nextEl: '.me-banner-swiper .swiper-button-next',
-      prevEl: '.me-banner-swiper .swiper-button-prev',
+      nextEl: '.user-banner-swiper .swiper-button-next',
+      prevEl: '.user-banner-swiper .swiper-button-prev',
     },
-    // modules: [Autoplay, Pagination],
-    // centeredSlides: true,
-    // slideToClickedSlide: true,
-    // // loop: props.list.length > 1,
-    // autoplay: {
-    //   delay: 2000,
-    //   disableOnInteraction: true,
-    //   pauseOnMouseEnter: true,
-    // },
-    // pagination: {
-    //   el: '.swiper-pagination',
-    //   clickable: true,
-    // },
   })
 }
-console.log('swiper', swiper)
 onMounted(() => {
   initSwiper()
 })
 </script>
 
 <template>
-  <div class="me-banner-swiper">
+  <div class="user-banner-swiper">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-slide-inner" v-for="item in list" :key="item.id">
@@ -118,7 +107,7 @@ onMounted(() => {
                 <div class="label">investment</div>
                 <div class="value-token">
                   <img class="logo" :src="item.tokenLogo" alt="">
-                  <span class="span">SOL</span>
+                  <span class="span">{{item.tokenName}}</span>
                   <span>{{item.investment}}</span>
                 </div>
               </div>
@@ -126,8 +115,8 @@ onMounted(() => {
                 <div class="label">Token claimed</div>
                 <div class="value-token">
                   <img class="logo" :src="item.tokenLogo" alt="">
-                  <span class="span">Learning Star</span>
-                  <span>{{item.star}}</span>
+                  <span class="span">{{item.tokenName}}</span>
+                  <span>{{item.calmed}}</span>
                 </div>
               </div>
               <div class="item item-asset r-width-100">
@@ -167,7 +156,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-.me-banner-swiper {
+.user-banner-swiper {
   width: 100%;
   height: 652px;
   overflow: hidden;
@@ -312,6 +301,7 @@ onMounted(() => {
                 height: 72px;
                 margin-right: 15px;
                 cursor: pointer;
+                border-radius: 10px;
               }
             }
 

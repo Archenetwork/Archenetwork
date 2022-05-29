@@ -1,10 +1,14 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { getCountdownObj } from 'utils/func'
 import { bannerList } from './data'
 import useCommonStore from 'store/common'
 
 const commonStore = useCommonStore()
+const userInfo = computed(() => {
+  return commonStore.userInfo
+})
+
 const list = ref(bannerList.map(x => {
   x.countdown = parseInt(((new Date(x.endTime)).getTime() - (new Date()).getTime()) / 1000)
   x.countdownObj = getCountdownObj(x.countdown)
@@ -111,17 +115,17 @@ onUnmounted(() => {
         </div>
         <div class="card-footer">
           <div class="me-box" v-if="item.id === 1">
-            <img class="avatar" :src="commonStore.userInfo.avatar" alt="">
+            <img class="avatar" :src="userInfo?.avatar || ''" alt="">
             <div class="r-width-100">
-              <div class="name">{{commonStore.userInfo.name}}</div>
+              <div class="name">{{userInfo?.username}}</div>
               <div class="text">
                 <div class="item">
-                  <span class="label">Rank</span>
-                  <span class="value">#{{commonStore.userInfo.rank}}</span>
+                  <span class="label">Rank &nbsp;</span>
+                  <span class="value">#{{userInfo?.rank}}</span>
                 </div>
                 <div class="item">
-                  <span class="label">Price</span>
-                  <span class="value">${{commonStore.userInfo.price}}</span>
+                  <span class="label">Price &nbsp;</span>
+                  <span class="value">${{userInfo?.price}}</span>
                 </div>
               </div>
             </div>
