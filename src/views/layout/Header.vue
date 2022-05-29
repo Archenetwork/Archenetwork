@@ -81,7 +81,11 @@ const walletType = computed(() => {
 const account = computed(() => {
   return walletStore.account
 })
+const isLogin = ref(false)
 const handleChangeWalletVisible = (val) => {
+  if (val) {
+    isLogin.value = !!walletStore.account
+  }
   walletVisible.value = val
 }
 const handleClickOutWallet = (el) => {
@@ -213,7 +217,7 @@ const handleLogout = async () => {
           <!--connect Popup -->
           <r-popup v-model="walletVisible" :top="55" :width="280" :closeTop="true">
             <template #top>
-              <span v-if="!account">CONNECT WALLET</span>
+              <span v-if="!isLogin">CONNECT WALLET</span>
               <div v-else class="user-box">
                 <div class="avatar">
                   <img class="img" :src="userInfo?.avatar" alt="">
@@ -229,7 +233,7 @@ const handleLogout = async () => {
               </div>
             </template>
             <template #center>
-              <template v-if="!account">
+              <template v-if="!isLogin">
                 <div class="item" :class="{'active': item.id === walletType}" v-for="item in walletList" :key="item.id" @click="handleChangeWallet(item)">
                   <svg-icon class="item-icon" :name="item.icon + (item.id === walletType ? '-selected' : '')"></svg-icon>
                   <div class="item-name">{{item.name}}</div>
@@ -243,7 +247,7 @@ const handleLogout = async () => {
               </div>
             </template>
             <template #bottom>
-              <span v-if="!account">I don’t have a wallet</span>
+              <span v-if="!isLogin">I don’t have a wallet</span>
               <div v-else class="bottom-box">
                 <div class="logout-btn" @click="handleLogout">Log out</div>
               </div>

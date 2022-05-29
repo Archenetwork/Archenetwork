@@ -11,7 +11,7 @@
         <medals-card :list="item" :index="index"></medals-card>
       </div>
     </div>
-    <box type="empty" v-if="!getListLoading&&!list.length"></box>
+    <r-box type="empty" v-if="!getListLoading&&!list.length"></r-box>
     <load-more-list-btn ref="loadMoreListBtnRef" :limit="24" :getDataFunction="getListData" @on-refresh-list="refreshList"></load-more-list-btn>
   </div>
 </template>
