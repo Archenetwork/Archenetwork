@@ -197,19 +197,12 @@ onMounted(() => {
         position: absolute;
         top: 0;
         left: 0;
+        box-sizing: border-box;
         width: 305px;
         height: 652px;
-        background: url("/mock/game1/banner/mini_bg_1.png") no-repeat top left / 100%;
-
-        // box-sizing: border-box;
-        // width: 291px;
-        // height: 638px;
-        // background: rgb(0 0 0 / 30%);
-
-        // // background: url(HQ Banner.jpg);
-        // filter: drop-shadow(6px 6px 0 rgb(0 0 0 / 24%));
-        // border: 4px solid #000;
-        // border-radius: 12px;
+        filter: drop-shadow(6px 6px 0 rgb(0 0 0 / 24%));
+        border: 4px solid #000;
+        border-radius: 12px;
       }
 
       .slider-right {
@@ -389,6 +382,24 @@ onMounted(() => {
             font-size: 16px;
             font-weight: 600;
           }
+        }
+      }
+
+      &:nth-child(1) {
+        .slider-left {
+          background: url("/mock/game1/banner/mini_bg_1.png") no-repeat top left / 100%;
+        }
+      }
+
+      &:nth-child(2) {
+        .slider-left {
+          background: url("/mock/game1/banner/mini_bg_2.png") no-repeat top left / 100%;
+        }
+      }
+
+      &:nth-child(3) {
+        .slider-left {
+          background: url("/mock/game1/banner/mini_bg_3.png") no-repeat top left / 100%;
         }
       }
     }
