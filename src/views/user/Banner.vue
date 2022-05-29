@@ -37,7 +37,7 @@ const userInfo = computed(() => {
         <div class="base-info" v-if="userInfo">
           <img class="avatar" :src="userInfo.avatar" alt="">
           <div class="text">
-            <div class="name">{{userInfo.name}}</div>
+            <div class="name">{{userInfo.username}}</div>
             <div class="id">UID {{userInfo.uid}}</div>
             <div class="address-box">
               <svg-icon class="icon" name="wallet"></svg-icon>
