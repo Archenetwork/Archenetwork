@@ -1,13 +1,17 @@
 import { _get, _post } from './request'
 import { _post as _postV2 } from './v2'
 import useLocalStore from '@/store/local'
+import { _get as _mockGet } from '@/mock'
+
+// template manage
+export const listMyGame = query => _mockGet('/games', query)
 
 // get all my games
 export const listMyGameAll = (userId) => {
   return _get('/insight-watcher/game', { userId: userId }, true)
 }
 // get my games by pages
-export const listMyGame = (query) => {
+export const listMyGame1 = (query) => {
   query.first = query.limit
   query.skip = query.offset
   delete query.limit

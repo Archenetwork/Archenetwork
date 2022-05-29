@@ -3,6 +3,9 @@ import MockAdapter from 'axios-mock-adapter'
 import { LoginUsers, Users } from './data/user'
 import { Players } from './data/player'
 import { Reviews } from './data/review'
+import { myGames } from './data/myGame'
+import { medalList } from './data/medal'
+
 import { notifyApiErrorInfo } from 'utils/notification'
 import useLisaStore from 'store/lisa'
 import { sortJson } from 'utils/func'
@@ -10,6 +13,8 @@ import { sortJson } from 'utils/func'
 const _Users = Users
 const _Players = Players
 const _Reviews = Reviews
+const _myGames = myGames
+const _Medals = medalList
 
 // let checkPageCurrentDelete = function (num) {
 //   let oldPage = Math.ceil(this.listPage.total / this.listPage.size)
@@ -126,6 +131,55 @@ export default {
       } else {
         mockList = sortJson(mockList, 'roi', 'desc')
       }
+      mockList = mockList.filter((u, index) => index < offset + limit && index >= offset)
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            items: mockList,
+          }])
+        }, 20)
+      })
+    })
+
+    mock.onGet('/games').reply(config => {
+      let { limit, offset, search = null, genre = null, orderType = 1 } = config.params
+      limit = Number(limit)
+      offset = Number(offset)
+      let mockList = JSON.parse(JSON.stringify(_myGames))
+      mockList = mockList.filter(x => {
+        let flag = true
+        if (search && !x.gameName.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+          flag = false
+        } else {
+          if (genre && !x.tags.includes(genre)) {
+            flag = false
+          }
+        }
+        return flag
+      })
+      const total = mockList.length
+      // orderType 0,2
+      mockList = sortJson(mockList, 'createdTime', orderType === 0 ? 'asc' : 'desc')
+      mockList = mockList.filter((u, index) => index < offset + limit && index >= offset)
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            items: mockList,
+          }])
+        }, 20)
+      })
+    })
+
+    mock.onGet('/medals').reply(config => {
+      let { limit, offset, orderType = 1 } = config.params
+      limit = Number(limit)
+      offset = Number(offset)
+      let mockList = JSON.parse(JSON.stringify(_Medals))
+      const total = mockList.length
+      // orderType 0,2
+      mockList = sortJson(mockList, 'createdTime', orderType === 0 ? 'asc' : 'desc')
       mockList = mockList.filter((u, index) => index < offset + limit && index >= offset)
       return new Promise((resolve, reject) => {
         setTimeout(() => {

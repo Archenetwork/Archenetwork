@@ -150,7 +150,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <svg-icon class="swiper-button-next" name="next"></svg-icon>
+      <svg-icon class="swiper-button-next" name="big_next"></svg-icon>
     </div>
   </div>
 </template>

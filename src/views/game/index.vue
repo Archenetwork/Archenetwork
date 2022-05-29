@@ -94,25 +94,8 @@ const getListData = (pageQuery, isRefresh) => {
 }
 const refreshList = (data, isRefresh) => {
   const items = data.map(x => {
-    const assetsList = []
-    x.project.forEach(xx => {
-      xx.blindBox.forEach(xxx => {
-        assetsList.push(...xxx.nft.map(xxxx => {
-          return {
-            hash: xxxx.hash,
-            name: xxxx.name,
-            img: xxxx.uriThumbnail,
-          }
-        }))
-      })
-    })
-    return {
-      id: x.id,
-      logo: x.cover,
-      name: x.name,
-      collected: x.collected,
-      assetsList: getGroupList(assetsList, 4),
-    }
+    x.assetsList = getGroupList(x.assetsList, 4)
+    return x
   })
 
   if (isRefresh) {
