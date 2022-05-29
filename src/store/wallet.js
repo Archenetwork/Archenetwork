@@ -1,6 +1,3 @@
-/*
- * @Descripttion: 状态管理
- */
 import { defineStore } from 'pinia'
 import { getShortAddress } from 'utils/func'
 import storage from 'utils/storage'

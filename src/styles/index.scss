@@ -4,6 +4,11 @@
 @import "./normalize.css";
 @import "./r-atomic.scss";
 @import "./element-plus.scss";
-@import "./base.scss";
-@import "./iconfont.scss";
+@import "swiper/css";
+@import "swiper/css/autoplay";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+
+// @import "./iconfont.scss";
 @import "./variables.scss";
+@import "./base.scss";
