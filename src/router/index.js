@@ -59,6 +59,7 @@ const router = createRouter({
 NProgress.configure({ showSpinner: false })
 
 router.beforeEach((to, from, next) => {
+  window.scrollTo({ top: 0 })
   NProgress.start()
   next()
 })

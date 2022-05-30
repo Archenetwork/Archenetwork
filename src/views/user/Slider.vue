@@ -98,7 +98,6 @@ onMounted(() => {
     arr = [item3, item1, item2]
   }
   list.value = arr
-  console.log('list.value', type)
   nextTick(() => {
     initSwiper()
   })
