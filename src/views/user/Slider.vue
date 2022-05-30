@@ -1,7 +1,8 @@
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import Swiper, { EffectCards, Navigation } from 'swiper'
 import { useRoute } from 'vue-router'
+import { getBadgeName } from '@/mock/data/medal'
 
 const route = useRoute()
 
@@ -85,6 +86,10 @@ const initSwiper = () => {
     },
   })
 }
+
+const getBadgeNameByLogo = (logo) => {
+  return getBadgeName(logo)
+}
 onMounted(() => {
   const type = route.query.type
   let arr = [item1, item2, item3]
@@ -92,6 +97,7 @@ onMounted(() => {
     const local = JSON.parse(localStorage.getItem('item') || '{}')
     if (local.text) {
       item2.review.desc = local.text
+      item2.review.likeCount = local.likeCount
     }
     arr = [item2, item1, item3]
   } else if (type === '3') {
@@ -147,10 +153,12 @@ onMounted(() => {
               <div class="item r-width-100">
                 <div class="label">badges</div>
                 <div class="value-badge">
-                  <div class="img-box" v-for="(item, i) in item.badges" :key="i">
-                    <div class="new" v-if="i === 0"><span>NEW</span></div>
-                    <img class="img" :src="item" alt="">
-                  </div>
+                  <el-tooltip effect="dark" v-for="(item, i) in item.badges" :key="i" :content="getBadgeNameByLogo(item)" placement="top">
+                    <div class="img-box" >
+                      <div class="new" v-if="i === 0"><span>NEW</span></div>
+                      <img class="img" :src="item" alt="">
+                    </div>
+                  </el-tooltip>
                 </div>
               </div>
               <div class="item item-review r-width-100">
@@ -160,12 +168,13 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-            <!-- <div class="review-box">
-              <img class="avatar" :src="item.review.avatar" alt="">
-              <span class="name">{{item.review.name}}</span>
+            <div class="review-box">
+              <!-- <img class="avatar" :src="item.review.avatar" alt="">
+              <span class="name">{{item.review.name}}</span> -->
+              <div></div>
               <svg-icon class="icon" name="follow"></svg-icon>
               <span class="count">{{item.review.likeCount}}</span>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -365,12 +374,13 @@ onMounted(() => {
 
             .value-review {
               height: 90px;
-              height: 144px;
+
+              // height: 144px;
               font-size: 12px;
               line-height: 18px;
               color: #b0babf;
 
-              @include multi-line-ellipsis(8);
+              @include multi-line-ellipsis(5);
             }
           }
 
@@ -386,6 +396,8 @@ onMounted(() => {
         .review-box {
           display: flex;
           align-items: center;
+          justify-content: flex-end;
+          height: 50px;
 
           .avatar {
             width: 32px;

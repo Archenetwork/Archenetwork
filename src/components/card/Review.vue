@@ -1,4 +1,5 @@
 <script setup>
+import Mock from 'mockjs'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -8,10 +9,10 @@ const props = defineProps({
 })
 
 const goPage = (item) => {
+  console.log('tem', item)
   const data = {
     avatar: item.userAvatar,
     name: item.userName,
-    averageRoi: 135,
     tags: ['MOBA', 'EDU', 'SPG'],
     state: 'Just chilling',
     wishList: ['/mock/game/8.webp', '/mock/game/9.webp', '/mock/game/10.webp'],
@@ -24,6 +25,10 @@ const goPage = (item) => {
     shortAddress: '0x4d32...fee2',
     uid: 1592346246,
     text: item.text,
+    likeCount: item.likeCount,
+    gameCount: Mock.Random.integer(3, 10),
+    averageRoi: Mock.Random.integer(80, 230),
+    friendCount: Mock.Random.integer(5, 99),
   }
   localStorage.setItem('item', JSON.stringify(data))
   router.push({

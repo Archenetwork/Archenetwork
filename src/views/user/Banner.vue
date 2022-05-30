@@ -2,8 +2,11 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import useCommonStore from 'store/common'
 import Slider from './Slider.vue'
+import { getBadgeName } from '@/mock/data/medal'
 import { useRoute } from 'vue-router'
-
+const getBadgeNameByLogo = (logo) => {
+  return getBadgeName(logo)
+}
 const commonStore = useCommonStore()
 const route = useRoute()
 
@@ -104,7 +107,9 @@ onUnmounted(() => {
           <div class="item r-width-100">
             <span class="label">Badges</span>
             <div class="value-badge">
-              <img class="img" v-for="(item, i) in userInfo.badges" :key="i" :src="item" alt="">
+              <el-tooltip effect="dark" v-for="(item, i) in userInfo.badges" :key="i" :content="getBadgeNameByLogo(item)" placement="top">
+                <img class="img" :src="item" alt="">
+              </el-tooltip>
             </div>
           </div>
         </div>

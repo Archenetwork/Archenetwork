@@ -1,5 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { getBadgeName } from '@/mock/data/medal'
+import Mock from 'mockjs'
 
 const router = useRouter()
 
@@ -24,6 +26,9 @@ const goPage = (item) => {
     address: '0x548a7DBF224F2a3ECa8D8bfBd809e0549bF3Fu8',
     shortAddress: '0x548a...3Fu8',
     uid: 15923681,
+    likeCount: Mock.Random.integer(1000, 300),
+    gameCount: Mock.Random.integer(3, 10),
+    friendCount: Mock.Random.integer(5, 99),
   }
   localStorage.setItem('item', JSON.stringify(data))
   router.push({
@@ -33,6 +38,10 @@ const goPage = (item) => {
       type: 3,
     },
   })
+}
+
+const getBadgeNameByLogo = (logo) => {
+  return getBadgeName(logo)
 }
 </script>
 
@@ -47,7 +56,9 @@ const goPage = (item) => {
       <div class="hd-content">
         <div class="name r-text-line-1">{{item.name}}</div>
         <div class="medals">
-          <img class="img" v-for="(badge, i) in item.badge" :src="badge" :key="i" alt="">
+          <el-tooltip effect="dark" v-for="(item, i) in item.badge" :key="i" :content="getBadgeNameByLogo(item)" placement="top">
+          <img class="img" :src="item" :key="i" alt="">
+          </el-tooltip>
         </div>
       </div>
     </div>

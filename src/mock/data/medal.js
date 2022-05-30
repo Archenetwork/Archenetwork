@@ -37,6 +37,10 @@ export const medalList = list.map(x => {
   return x
 })
 
+export const getBadgeName = (logo) => {
+  const item = list.find(x => x.logo === logo)
+  return item ? item.name : ''
+}
 //  0 - 14
 // export const badgeDb = [
 //   '/mock/badge/11.png',
