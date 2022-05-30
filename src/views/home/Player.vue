@@ -3,7 +3,6 @@ import { playerList } from './data'
 import PlayerCard from 'components/card/Player.vue'
 
 const list = playerList
-
 </script>
 
 <template>
@@ -14,7 +13,8 @@ const list = playerList
     </div>
     <div class="content">
       <player-card class="player-card" v-for="item in list" :key="item.id"
-        :item="item"></player-card>
+        :item="item"
+        ></player-card>
     </div>
   </div>
 </template>

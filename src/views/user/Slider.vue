@@ -1,69 +1,71 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import Swiper, { EffectCards, Navigation } from 'swiper'
+import { useRoute } from 'vue-router'
 
-const list = ref([
-  {
-    id: 1,
-    gameLogo: '/mock/game1/1.png',
-    gameName: 'Axie Infinity',
-    startTime: '2021.10.13',
-    bg: '/mock/game1/banner/mini_bg_1.png',
-    roi: 114,
-    investment: 6790,
-    calmed: 14531,
-    tokenLogo: '/mock/token/slp.png',
-    tokenName: 'SLP',
-    assets: ['/mock/asset/11.png', '/mock/asset/12.png', '/mock/asset/13.png'],
-    badges: ['/mock/badge/18.png', '/mock/badge/17.png', '/mock/badge/13.png', '/mock/badge/16.png'],
-    review: {
-      avatar: '/mock/avatar/1.png',
-      name: 'Maximo Yrysnk',
-      likeCount: 887,
-      desc: 'Axie Infinity is a Pokémon-inspired digital pet universe where anyone can earn tokens through skillful gameplay and contributions to the ecosystem. Players can fight, collect, grow and build a land kingdom for their pets. I think the only drawback is the few languages for users.',
-    },
+const route = useRoute()
+
+const item1 = {
+  id: 1,
+  gameLogo: '/mock/game1/1.png',
+  gameName: 'Axie Infinity',
+  startTime: '2021.10.13',
+  bg: '/mock/game1/banner/mini_bg_1.png',
+  roi: 114,
+  investment: 6790,
+  calmed: 14531,
+  tokenLogo: '/mock/token/slp.png',
+  tokenName: 'SLP',
+  assets: ['/mock/asset/11.png', '/mock/asset/12.png', '/mock/asset/13.png'],
+  badges: ['/mock/badge/18.png', '/mock/badge/17.png', '/mock/badge/13.png', '/mock/badge/16.png'],
+  review: {
+    avatar: '/mock/avatar/1.png',
+    name: 'Maximo Yrysnk',
+    likeCount: 887,
+    desc: 'Axie Infinity is a Pokémon-inspired digital pet universe where anyone can earn tokens through skillful gameplay and contributions to the ecosystem. Players can fight, collect, grow and build a land kingdom for their pets. I think the only drawback is the few languages for users.',
   },
-  {
-    id: 2,
-    gameLogo: '/mock/game1/2.png',
-    gameName: 'Stepn',
-    startTime: '2022.03.14',
-    bg: '/mock/game1/banner/mini_bg_2.png',
-    roi: 179,
-    investment: 943,
-    calmed: 2631,
-    tokenName: 'GST',
-    tokenLogo: '/mock/token/gst.webp',
-    assets: ['/mock/asset/21.png', '/mock/asset/22.png', '/mock/asset/23.png'],
-    badges: ['/mock/badge/21.png', '/mock/badge/22.png', '/mock/badge/26.png', '/mock/badge/28.png'],
-    review: {
-      avatar: '/mock/avatar/21.png',
-      name: 'Guinox',
-      likeCount: 887,
-      desc: 'I start with Stepn because I heard it provide a decent earning, but since I have been running about a month my propose changed, now I realized that Stepn do help me living a healthy life, I don’t care about the earnings anymore, all I care about is did I run today. Why spend money in gym? You should try move to earn.',
-    },
+}
+const item2 = {
+  id: 2,
+  gameLogo: '/mock/game1/2.png',
+  gameName: 'Stepn',
+  startTime: '2022.03.14',
+  bg: '/mock/game1/banner/mini_bg_2.png',
+  roi: 179,
+  investment: 943,
+  calmed: 2631,
+  tokenName: 'GST',
+  tokenLogo: '/mock/token/gst.webp',
+  assets: ['/mock/asset/21.png', '/mock/asset/22.png', '/mock/asset/23.png'],
+  badges: ['/mock/badge/21.png', '/mock/badge/22.png', '/mock/badge/26.png', '/mock/badge/28.png'],
+  review: {
+    avatar: '/mock/avatar/21.png',
+    name: 'Guinox',
+    likeCount: 887,
+    desc: 'I start with Stepn because I heard it provide a decent earning, but since I have been running about a month my propose changed, now I realized that Stepn do help me living a healthy life, I don’t care about the earnings anymore, all I care about is did I run today. Why spend money in gym? You should try move to earn.',
   },
-  {
-    id: 3,
-    gameLogo: '/mock/game1/3.png',
-    gameName: 'Let me speak',
-    startTime: '2022.03.20',
-    bg: '/mock/game1/banner/mini_bg_3.png',
-    roi: 97,
-    investment: 8734,
-    calmed: 17206,
-    tokenName: 'LS',
-    tokenLogo: '/mock/token/ls.png',
-    assets: ['/mock/asset/31.png', '/mock/asset/32.png', '/mock/asset/33.png'],
-    badges: ['/mock/badge/33.png', '/mock/badge/34.png', '/mock/badge/35.png', '/mock/badge/36.png'],
-    review: {
-      avatar: '/mock/avatar/13.png',
-      name: 'Kustinski',
-      likeCount: 887,
-      desc: 'Well, when everything comes to x to earn, you got say is a good motivate to do x. Learning a language can be hard sometimes but reward with money and make it like a game, everyone would like to try.',
-    },
+}
+const item3 = {
+  id: 3,
+  gameLogo: '/mock/game1/3.png',
+  gameName: 'Let me speak',
+  startTime: '2022.03.20',
+  bg: '/mock/game1/banner/mini_bg_3.png',
+  roi: 97,
+  investment: 8734,
+  calmed: 17206,
+  tokenName: 'LS',
+  tokenLogo: '/mock/token/ls.png',
+  assets: ['/mock/asset/31.png', '/mock/asset/32.png', '/mock/asset/33.png'],
+  badges: ['/mock/badge/33.png', '/mock/badge/34.png', '/mock/badge/35.png', '/mock/badge/36.png'],
+  review: {
+    avatar: '/mock/avatar/13.png',
+    name: 'Kustinski',
+    likeCount: 887,
+    desc: 'Well, when everything comes to x to earn, you got say is a good motivate to do x. Learning a language can be hard sometimes but reward with money and make it like a game, everyone would like to try.',
   },
-])
+}
+const list = ref([item1, item2, item3])
 
 let swiper = null
 const initSwiper = () => {
@@ -84,8 +86,24 @@ const initSwiper = () => {
   })
 }
 onMounted(() => {
-  initSwiper()
+  const type = route.query.type
+  let arr = [item1, item2, item3]
+  if (type === '2') {
+    const local = JSON.parse(localStorage.getItem('item') || '{}')
+    if (local.text) {
+      item2.review.desc = local.text
+    }
+    arr = [item2, item1, item3]
+  } else if (type === '3') {
+    arr = [item3, item1, item2]
+  }
+  list.value = arr
+  console.log('list.value', type)
+  nextTick(() => {
+    initSwiper()
+  })
 })
+
 </script>
 
 <template>

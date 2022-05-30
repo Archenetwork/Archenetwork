@@ -1,12 +1,43 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const props = defineProps({
   item: Object,
 })
 
+const goPage = (item) => {
+  const data = {
+    avatar: item.avatar,
+    name: item.name,
+    averageRoi: item.roi,
+    tags: item.tags,
+    badge: item.badge,
+    state: item.devStatusLabel,
+    wishList: ['/mock/game/13.webp', '/mock/game/14.webp', '/mock/game/15.webp'],
+    badges: ['/mock/badge/111.png', '/mock/badge/27.png',
+      '/mock/badge/24.png', '/mock/badge/212.png',
+      '/mock/badge/31.png', '/mock/badge/18.png'],
+    rank: 83,
+    price: 35,
+    address: '0x548a7DBF224F2a3ECa8D8bfBd809e0549bF3Fu8',
+    shortAddress: '0x548a...3Fu8',
+    uid: 15923681,
+  }
+  localStorage.setItem('item', JSON.stringify(data))
+  router.push({
+    name: 'User',
+    query: {
+      id: item.id,
+      type: 3,
+    },
+  })
+}
 </script>
 
 <template>
-  <div class="c-card-player">
+  <div class="c-card-player" @click="goPage(item)">
     <div class="hd">
       <div class="avatar-box-wrap">
         <div class="avatar-box-inner">
@@ -37,6 +68,8 @@ const props = defineProps({
 
 <style lang="scss">
 .c-card-player {
+  cursor: pointer;
+
   .hd {
     display: flex;
 

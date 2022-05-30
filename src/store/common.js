@@ -75,7 +75,6 @@ const useCommonStore = defineStore({
 
         rank: 66,
         price: 30,
-        name: '0xpi314',
         uid: '159265358',
         shortAddress: getShortAddress(payload.walletAddress),
         tags: ['MOBA', 'EDU', 'SPG'],

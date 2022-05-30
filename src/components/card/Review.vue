@@ -1,12 +1,44 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const props = defineProps({
   item: Object,
 })
 
+const goPage = (item) => {
+  const data = {
+    avatar: item.userAvatar,
+    name: item.userName,
+    averageRoi: 135,
+    tags: ['MOBA', 'EDU', 'SPG'],
+    state: 'Just chilling',
+    wishList: ['/mock/game/8.webp', '/mock/game/9.webp', '/mock/game/10.webp'],
+    badges: ['/mock/badge/11.png', '/mock/badge/112.png',
+      '/mock/badge/24.png', '/mock/badge/36.png',
+      '/mock/badge/31.png', '/mock/badge/311.png'],
+    rank: 132,
+    price: 29,
+    address: '0x4d327DBF224F2a3ECa8D8bfBd809e0549bFfee2',
+    shortAddress: '0x4d32...fee2',
+    uid: 1592346246,
+    text: item.text,
+  }
+  localStorage.setItem('item', JSON.stringify(data))
+  router.push({
+    name: 'User',
+    query: {
+      id: item.id,
+      type: 2,
+    },
+  })
+}
+
 </script>
 
 <template>
-  <div class="c-card-review">
+  <div class="c-card-review" @click="goPage(item)">
     <div class="a-box-shadow-wrap">
       <div class="a-box-shadow-inner-no-border">
         <div class="hd">
@@ -35,6 +67,8 @@ const props = defineProps({
 
 <style lang="scss">
 .c-card-review {
+  cursor: pointer;
+
   .a-box-shadow-inner-no-border {
     padding: 20px;
     background: #3a3c42;

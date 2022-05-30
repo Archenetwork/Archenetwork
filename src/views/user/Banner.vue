@@ -1,10 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import useCommonStore from 'store/common'
 import Slider from './Slider.vue'
+import { useRoute } from 'vue-router'
 
 const commonStore = useCommonStore()
+const route = useRoute()
 
+const userInfo = ref({})
 const userInfo1 = ref({
   name: '0xpi314',
   id: '159265358',
@@ -24,8 +27,26 @@ const userInfo1 = ref({
     '/mock/badge/31.png', '/mock/badge/18.png'],
 })
 
-const userInfo = computed(() => {
-  return commonStore.userInfo
+const btnName = computed(() => {
+  return route.query.type ? 'ADD' : 'EDIT'
+})
+const commonUserInfo = computed(() => {
+  return commonStore.userInfo || {}
+})
+
+const initData = () => {
+  const local = JSON.parse(localStorage.getItem('item') || '{}')
+  userInfo.value = {
+    ...commonUserInfo.value,
+    ...local,
+  }
+}
+
+onMounted(() => {
+  initData()
+})
+onUnmounted(() => {
+  localStorage.removeItem('item')
 })
 
 </script>
@@ -37,7 +58,7 @@ const userInfo = computed(() => {
         <div class="base-info" v-if="userInfo">
           <img class="avatar" :src="userInfo.avatar" alt="">
           <div class="text">
-            <div class="name">{{userInfo.username}}</div>
+            <div class="name">{{userInfo.name}}</div>
             <div class="id">UID {{userInfo.uid}}</div>
             <div class="address-box">
               <svg-icon class="icon" name="wallet"></svg-icon>
@@ -95,7 +116,7 @@ const userInfo = computed(() => {
             <div class="title-text">GAMES</div>
           </div>
           <div class="right">
-            <div class="btn">EDIT</div>
+            <div class="btn">{{btnName}}</div>
           </div>
         </div>
         <slider></slider>

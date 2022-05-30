@@ -402,6 +402,7 @@ export const playerList1 = [
 
 export const reviewList = [
   {
+    gameId: 2,
     gameName: 'Stepn',
     gameLogo: 'mock/game/1.jpg',
     text: 'We think the NFT-enabled, gamified, fitness-oriented move2earn mobile app that STEPN is building is an excellent idea. The additional monetary incentive alters the dopamine curve just enough to bring millions into healthier lifestyles and to the Web 3.0 world.',
@@ -412,6 +413,7 @@ export const reviewList = [
     likeCount: 367,
   },
   {
+    gameId: 1,
     gameName: 'Axie Infinity',
     gameLogo: 'mock/game/2.png',
     text: 'Axie Infinity is the perfect encapsulation of the future crypto wants: a crypto game so expensive to play, predatory lenders offer "scholarships" to those who can\'t afford it that requires they hand over a large percentage of their in-game earnings',
@@ -422,6 +424,7 @@ export const reviewList = [
     likeCount: 789,
   },
   {
+    gameId: 1,
     gameName: 'The Sandbox',
     gameLogo: 'mock/game/3.png',
     text: 'JUST IN: TIME Magazine has named The Sandbox #Metaverse one of the most influential companies of 2022.',

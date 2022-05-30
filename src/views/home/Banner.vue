@@ -45,9 +45,8 @@ const handleJoin = (item) => {
 
   // local
   const old = JSON.parse(localStorage.getItem('home') || '{}')
-  const newItem = old[userInfo.id] || {}
-  newItem[item.id] = home
-  old[userInfo.id] = newItem
+  // const userItem = old[userInfo.id] || {}
+  old[userInfo.id] = home
   localStorage.setItem('home', JSON.stringify(old))
   ElMessage.success('Join Success')
 }
