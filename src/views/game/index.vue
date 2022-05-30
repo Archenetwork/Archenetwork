@@ -25,16 +25,16 @@
             <div :class="'swiper-container swiper-container-'+index">
               <div class="'swiper-wrapper swiper-wrapper">
                 <div class="'swiper-slide swiper-slide" v-for="(swiper, si) in item.assetsList" :key="si">
-                  <div class="box-item" v-for="(item, index) in swiper" :key="index">
+                  <div class="box-item" v-for="(item2, index) in swiper" :key="index">
                     <div class="img-box">
                       <div class="a-box-shadow-wrap">
-                        <div class="a-box-shadow-inner">
-                          <img class="img" :src="item.img" alt="">
+                        <div class="a-box-shadow-inner 2" :style="{'padding': item.id === 3 ? '10px' : ''}">
+                          <img class="img" :src="item2.img" alt="">
                         </div>
                       </div>
                     </div>
-                    <el-tooltip :content="item.name" placement="bottom">
-                      <div class="name r-text-line-1">{{item.name}}</div>
+                    <el-tooltip :content="item2.name" placement="bottom">
+                      <div class="name r-text-line-1">{{item2.name}}</div>
                     </el-tooltip>
                   </div>
                 </div>

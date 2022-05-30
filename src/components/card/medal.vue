@@ -4,7 +4,7 @@
     <div class="medal-wrap">
       <div class="card-wrap">
         <div class="card-content">
-          <el-tooltip class="box-item" effect="dark" :content="list.desc" placement="right">
+          <el-tooltip class="box-item" effect="dark" :content="list.desc" placement="top">
             <img :src="list.logo" alt="">
           </el-tooltip>
         </div>
@@ -69,12 +69,13 @@ const props = defineProps({
     .card-content {
       width: 100%;
       height: 100%;
+      cursor: pointer;
     }
 
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 
