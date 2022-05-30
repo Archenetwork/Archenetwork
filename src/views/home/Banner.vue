@@ -3,6 +3,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { getCountdownObj } from 'utils/func'
 import { bannerList } from './data'
 import useCommonStore from 'store/common'
+import { ElMessage } from 'element-plus'
+import { rankData } from '@/mock/data/rank'
 
 const commonStore = useCommonStore()
 const userInfo = computed(() => {
@@ -27,6 +29,27 @@ const startInterval = () => {
       }
     })
   }, 1000)
+}
+
+const handleJoin = (item) => {
+  const userInfo = commonStore.userInfo
+  if (!userInfo) {
+    ElMessage.error('Please Connect Wallet')
+    return
+  }
+  const data = rankData[item.id]
+  const home = userInfo.home || {}
+  home[item.id] = data
+  userInfo.home = home
+  commonStore.setNewUserInfo(userInfo)
+
+  // local
+  const old = JSON.parse(localStorage.getItem('home') || '{}')
+  const newItem = old[userInfo.id] || {}
+  newItem[item.id] = home
+  old[userInfo.id] = newItem
+  localStorage.setItem('home', JSON.stringify(old))
+  ElMessage.success('Join Success')
 }
 
 onMounted(() => {
@@ -114,24 +137,24 @@ onUnmounted(() => {
           </div>
         </div>
         <div class="card-footer">
-          <div class="me-box" v-if="item.id === 1">
+          <div class="me-box" v-if="userInfo && userInfo.home && userInfo.home[item.id]">
             <img class="avatar" :src="userInfo?.avatar || ''" alt="">
             <div class="r-width-100">
               <div class="name">{{userInfo?.username}}</div>
               <div class="text">
                 <div class="item">
                   <span class="label">Rank &nbsp;</span>
-                  <span class="value">#{{userInfo?.rank}}</span>
+                  <span class="value">{{userInfo.home[item.id].rank}}</span>
                 </div>
                 <div class="item">
                   <span class="label">Price &nbsp;</span>
-                  <span class="value">${{userInfo?.price}}</span>
+                  <span class="value">{{userInfo.home[item.id].price}}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="join-box" v-else>
-            <div class="btn">Join competition</div>
+            <div class="btn" @click="handleJoin(item)">Join competition</div>
             <div class="time-wrap">
               <span class="label">Ends in</span>
               <span class="time">

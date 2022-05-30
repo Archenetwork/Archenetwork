@@ -106,12 +106,12 @@ const handleChangeWallet = async (item) => {
         }
         await connectWalletConnect(chainId)
       }
-      let userInfo = await getUser(walletStore.account)
-      if (userInfo.code !== 200) {
-        await addUser({ walletAddress: walletStore.account })
-        userInfo = await getUser(walletStore.account)
-      }
-      commonStore.setUserInfo(userInfo.data || null)
+      // let userInfo = await getUser(walletStore.account)
+      // if (userInfo.code !== 200) {
+      //   await addUser({ walletAddress: walletStore.account })
+      //   userInfo = await getUser(walletStore.account)
+      // }
+      // commonStore.setUserInfo(userInfo.data || null)
     } catch (err) {
       console.log('connect wallet error:', err)
     }
@@ -121,8 +121,9 @@ const handleChangeWallet = async (item) => {
 const networkList = getChainList()
 const currentNetwork = computed(() => {
   const id = walletStore.selectChainId
-  if (id > 0) {
-    return networkList.find(x => x.chainId === id)
+  const item = networkList.find(x => x.chainId === id)
+  if (item) {
+    return item
   } else {
     return { chainId: 0, chainName: '', showName: 'NetError', icon: 'error' }
   }

@@ -68,7 +68,8 @@ export default ({ mode }) => {
       },
     },
     server: {
-      port: 3001,
+      port: 3002,
+      host: '0.0.0.0',
       proxy: {
         '/devApi': {
           target: 'http://13.214.254.61:9999',

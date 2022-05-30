@@ -8,6 +8,7 @@ const list = ref([
     gameLogo: '/mock/game1/1.png',
     gameName: 'Axie Infinity',
     startTime: '2021.10.13',
+    bg: '/mock/game1/banner/mini_bg_1.png',
     roi: 114,
     investment: 6790,
     calmed: 14531,
@@ -27,6 +28,7 @@ const list = ref([
     gameLogo: '/mock/game1/2.png',
     gameName: 'Stepn',
     startTime: '2022.03.14',
+    bg: '/mock/game1/banner/mini_bg_2.png',
     roi: 179,
     investment: 943,
     calmed: 2631,
@@ -46,6 +48,7 @@ const list = ref([
     gameLogo: '/mock/game1/3.png',
     gameName: 'Let me speak',
     startTime: '2022.03.20',
+    bg: '/mock/game1/banner/mini_bg_3.png',
     roi: 97,
     investment: 8734,
     calmed: 17206,
@@ -67,8 +70,7 @@ const initSwiper = () => {
   swiper = new Swiper('.user-banner-swiper .swiper-container', {
     modules: [EffectCards, Navigation],
     effect: 'cards',
-    spaceBetween: 30,
-    // loop: true,
+    loop: true,
     grabCursor: true,
     cardsEffect: {
       rotate: false,
@@ -91,7 +93,7 @@ onMounted(() => {
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-slide-inner" v-for="item in list" :key="item.id">
-          <div class="slider-left">
+          <div class="slider-left" :style="`background-image: url(${item.bg});`">
           </div>
           <div class="slider-right">
             <div class="base-info">
@@ -136,17 +138,17 @@ onMounted(() => {
               </div>
               <div class="item item-review r-width-100">
                 <div class="label">MY Review</div>
-                <div class="value-review r-text-line-5">
+                <div class="value-review">
                   {{item.review.desc}}
                 </div>
               </div>
             </div>
-            <div class="review-box">
+            <!-- <div class="review-box">
               <img class="avatar" :src="item.review.avatar" alt="">
               <span class="name">{{item.review.name}}</span>
               <svg-icon class="icon" name="follow"></svg-icon>
               <span class="count">{{item.review.likeCount}}</span>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -201,6 +203,11 @@ onMounted(() => {
         width: 305px;
         height: 652px;
         filter: drop-shadow(6px 6px 0 rgb(0 0 0 / 24%));
+
+        // background: url("/mock/game1/banner/mini_bg_1.png") no-repeat top left / 100%;
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: 100%;
         border: 4px solid #000;
         border-radius: 12px;
       }
@@ -341,9 +348,12 @@ onMounted(() => {
 
             .value-review {
               height: 90px;
+              height: 144px;
               font-size: 12px;
               line-height: 18px;
               color: #b0babf;
+
+              @include multi-line-ellipsis(8);
             }
           }
 
@@ -385,23 +395,23 @@ onMounted(() => {
         }
       }
 
-      &:nth-child(1) {
-        .slider-left {
-          background: url("/mock/game1/banner/mini_bg_1.png") no-repeat top left / 100%;
-        }
-      }
+      // &:nth-child(1) {
+      //   .slider-left {
+      //     background: url("/mock/game1/banner/mini_bg_1.png") no-repeat top left / 100%;
+      //   }
+      // }
 
-      &:nth-child(2) {
-        .slider-left {
-          background: url("/mock/game1/banner/mini_bg_2.png") no-repeat top left / 100%;
-        }
-      }
+      // &:nth-child(2) {
+      //   .slider-left {
+      //     background: url("/mock/game1/banner/mini_bg_2.png") no-repeat top left / 100%;
+      //   }
+      // }
 
-      &:nth-child(3) {
-        .slider-left {
-          background: url("/mock/game1/banner/mini_bg_3.png") no-repeat top left / 100%;
-        }
-      }
+      // &:nth-child(3) {
+      //   .slider-left {
+      //     background: url("/mock/game1/banner/mini_bg_3.png") no-repeat top left / 100%;
+      //   }
+      // }
     }
   }
 }

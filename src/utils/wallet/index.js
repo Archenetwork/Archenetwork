@@ -14,7 +14,8 @@ export const connectMetamask = async (chainId, isInit = false) => {
   //   await window.walletInstance.switchChain(config.chainId)
   // }
   const currentChainId = await window.walletInstance.getChainId()
-  if (currentChainId !== chainId) {
+
+  if (currentChainId !== chainId && chainId > 0) {
     await window.walletInstance.switchChain(chainId)
   }
   if (isInit) {

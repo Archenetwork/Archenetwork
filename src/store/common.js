@@ -32,11 +32,19 @@ const useCommonStore = defineStore({
     setUserInfo1 (payload) {
       this.$state.userInfo = payload
     },
+    setNewUserInfo (payload) {
+      this.$state.userInfo = payload
+    },
     setUserInfo (payload) {
       if (!payload) {
         this.$state.userInfo = null
         return
       }
+
+      // local
+      const old = JSON.parse(localStorage.getItem('home') || '{}')
+      const home = old[payload.id]
+
       this.$state.userInfo = {
         id: payload.id,
         avatar: payload.avatar || '/images/avatar.png',
@@ -63,6 +71,7 @@ const useCommonStore = defineStore({
         discord: payload.discord,
         telegram: payload.telegram,
         twitter: payload.twitter,
+        home: home,
 
         rank: 66,
         price: 30,

@@ -7,7 +7,6 @@ import ReviewCard from 'components/card/Review.vue'
 
 const orderTypeList = [
   { label: 'NEW', value: 1, icon: 'new' },
-  { label: 'ROI', value: 2, icon: 'roi' },
 ]
 const currentOrderType = ref(1)
 const changOrderType = (val) => {
