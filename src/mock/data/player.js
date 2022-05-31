@@ -56,7 +56,7 @@ const Players = []
 
 for (let i = 1; i < 56; i++) {
   const status = Mock.Random.integer(1, 5)
-  Players.push(Mock.mock({
+  const item = {
     id: i,
     avatar: getAvatar(i),
     name: Mock.Random.name(),
@@ -66,8 +66,14 @@ for (let i = 1; i < 56; i++) {
     devStatusLabel: statusDb[status - 1],
     tags: getTags(),
     badge: getBadges(),
-    createdTime: Mock.Random.datetime(),
-  }))
+    createdTime: Mock.Random.integer(1, 2000),
+  }
+  if (i === 1) {
+    item.avatar = getAvatar(42)
+    item.name = 'Deborah Clark'
+    item.createdTime = 30000
+  }
+  Players.push(item)
 }
 
 export { Players }

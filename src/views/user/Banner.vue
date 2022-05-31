@@ -54,7 +54,7 @@ onUnmounted(() => {
 })
 
 const goDiscord = () => {
-
+  window.open('https://discord.gg/njb9mbRbuG')
 }
 
 </script>
