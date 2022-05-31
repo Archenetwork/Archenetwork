@@ -83,9 +83,9 @@ const useCommonStore = defineStore({
         friendCount: 7,
         state: 'Just chilling',
         wishList: ['/mock/game/13.webp', '/mock/game/14.webp', '/mock/game/15.webp'],
-        badges: ['/mock/badge/11.png', '/mock/badge/27.png',
-          '/mock/badge/24.png', '/mock/badge/36.png',
-          '/mock/badge/31.png', '/mock/badge/18.png'],
+        badges: ['/mock/badge/12.png', '/mock/badge/27.png',
+          '/mock/badge/112.png', '/mock/badge/36.png',
+          '/mock/badge/211.png', '/mock/badge/18.png'],
       }
     },
   },

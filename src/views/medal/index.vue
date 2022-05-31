@@ -1,7 +1,7 @@
 <template>
   <div class="a-container account-medals-page">
     <div class="a-page-title">
-      <div class="a-page-title-name">My Medals</div>
+      <div class="a-page-title-name">My Badges</div>
       <div class="a-page-title-right">
         <a-switch @click="sortChange" v-model="sortType"></a-switch>
       </div>

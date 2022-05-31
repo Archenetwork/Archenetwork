@@ -37,8 +37,8 @@ const appRoute = {
       component: () => import('@/views/setting/index.vue'),
     },
     {
-      path: 'medal',
-      name: 'Medal',
+      path: 'badge',
+      name: 'Badge',
       component: () => import('@/views/medal/index.vue'),
     },
     {

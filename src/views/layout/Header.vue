@@ -164,7 +164,7 @@ const handleCopy = () => {
 
 const accountMenuList = ref([
   { icon: 'account-menu-user', routerName: 'User', name: 'My DID Card' },
-  { icon: 'account-menu-medal', routerName: 'Medal', name: 'My Medals' },
+  { icon: 'account-menu-medal', routerName: 'Badge', name: 'My Badges' },
   { icon: 'account-menu-game', routerName: 'Game', name: 'My Games' },
   { icon: 'account-menu-setting', routerName: 'Setting', name: 'Setting' },
 ])

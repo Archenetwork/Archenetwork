@@ -66,16 +66,16 @@ const jump = (item) => {
         <div class="info-left">
           <svg-img class="logo" name="logo"></svg-img>
           <div class="desc">
-            Your Smart Crypto Asset Store
+            Your web 3.0 social gaming hub
           </div>
         </div>
         <div class="info-right">
-          <div class="info-right-title">
+          <!-- <div class="info-right-title">
             <svg-img class="footer_title" name="footer_title"></svg-img>
             <div class="desc">
               Join Arche Community and share the collective building of a future world of Metaverse!
             </div>
-          </div>
+          </div> -->
           <!-- todo -->
           <div class="info-right-function">
             <div class="email">
@@ -183,6 +183,10 @@ const jump = (item) => {
       width: 100%;
 
       &-left {
+        box-sizing: border-box;
+        height: 150px;
+        padding-top: 20px;
+
         .logo {
           width: 271px;
           height: 48px;
@@ -190,7 +194,6 @@ const jump = (item) => {
 
         .desc {
           margin-top: 15px;
-          margin-bottom: 153px;
           font-family: "Cindie Mono";
           font-size: 12px;
           font-style: normal;
@@ -223,7 +226,7 @@ const jump = (item) => {
         &-function {
           display: flex;
           justify-content: space-between;
-          margin-top: 50px;
+          margin-top: 30px;
 
           .title {
             margin-bottom: 15px;

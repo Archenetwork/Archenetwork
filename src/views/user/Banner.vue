@@ -41,6 +41,7 @@ const initData = () => {
   const local = JSON.parse(localStorage.getItem('item') || '{}')
   userInfo.value = {
     ...commonUserInfo.value,
+    name: commonUserInfo.value.username,
     ...local,
   }
 }
@@ -51,6 +52,10 @@ onMounted(() => {
 onUnmounted(() => {
   localStorage.removeItem('item')
 })
+
+const goDiscord = () => {
+
+}
 
 </script>
 
@@ -95,7 +100,7 @@ onUnmounted(() => {
             <div class="value-contact">
               <svg-icon class="icon" name="contact-twitter"></svg-icon>
               <svg-icon class="icon" name="contact-email"></svg-icon>
-              <svg-icon class="icon" name="contact-discord"></svg-icon>
+              <svg-icon class="icon" name="contact-discord" @click="goDiscord"></svg-icon>
             </div>
           </div>
           <div class="item r-width-100">
@@ -108,7 +113,10 @@ onUnmounted(() => {
             <span class="label">Badges</span>
             <div class="value-badge">
               <el-tooltip effect="dark" v-for="(item, i) in userInfo.badges" :key="i" :content="getBadgeNameByLogo(item)" placement="top">
-                <img class="img" :src="item" alt="">
+                <div class="img-box" >
+                  <div class="new" v-if="i < 3"><span>NEW</span></div>
+                  <img class="img" :src="item" alt="">
+                </div>
               </el-tooltip>
             </div>
           </div>
@@ -288,13 +296,40 @@ onUnmounted(() => {
           flex-wrap: wrap;
           align-items: center;
 
-          .img {
+          .img-box {
+            position: relative;
             width: 72px;
             height: 72px;
             margin-right: 20px;
             margin-bottom: 24px;
             cursor: pointer;
-            object-fit: contain;
+
+            .new {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 28px;
+              height: 16px;
+              background: #f2271c;
+              border: 1px solid #1a2024;
+              border-radius: 8px;
+
+              @include flex-center;
+
+              span {
+                font-size: 12px;
+                font-style: italic;
+                font-weight: 900;
+                transform: scale(.7);
+              }
+            }
+
+            .img {
+              display: block;
+              width: 72px;
+              height: 72px;
+              object-fit: contain;
+            }
           }
         }
       }
