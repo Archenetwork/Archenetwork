@@ -41,6 +41,6 @@ Simply connect wallet and Arche will automatically generate a UID, it can be att
  
 ## Communication
 
-[twitter](https://twitter.com/Arche_Network)
-[discord](https://discord.com/invite/ah8h2sqF2B)
-[Telegram](https://t.me/ArcheNetwork)
++ [twitter](https://twitter.com/Arche_Network)
++ [discord](https://discord.com/invite/ah8h2sqF2B)
++ [Telegram](https://t.me/ArcheNetwork)
