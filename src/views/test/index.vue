@@ -1,16 +1,20 @@
 <script setup>
-// import { mite } from 'api/ethers/arche'
+import { mint } from 'api/ethers/archeDid'
+// import { mint } from 'api/ethers/arche'
+import useWalletStore from 'store/wallet'
 
-const handleMite = async () => {
-  // const res = await mite()
-  // console.log('res', res)
+const walletStore = useWalletStore()
+
+const handleMint = async () => {
+  const res = await mint(walletStore.account, '1')
+  console.log('res', res)
 }
 </script>
 
 <template>
 
   <div class="test">
-    <el-button @click="handleMite">test</el-button>
+    <el-button @click="handleMint">test</el-button>
   </div>
 </template>
 
