@@ -12,6 +12,7 @@ export default {
   apiV2: ENV.VITE_API_V2,
   chains: ENV.VITE_CHAINS,
   agencyContractAddress: ENV.VITE_AGENCY_CONTRACT,
+  archeContractAddress: ENV.VITE_ARCHE_CONTRACT,
 
   // common
   defaultAvatar: '/images/avatar.png',

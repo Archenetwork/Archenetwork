@@ -63,6 +63,19 @@ export default {
       decimals: 18,
     },
   },
+  4: {
+    showName: 'Ethereum',
+    icon: 'eth',
+    chainId: 4,
+    chainName: 'Ethereum Testnet Ropsten',
+    rpcUrls: ['https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+    blockExplorerUrls: ['https://github.com/ethereum/ropsten'],
+    nativeCurrency: {
+      name: 'Ropsten Ether',
+      symbol: 'ROP',
+      decimals: 18,
+    },
+  },
   // eth mainnet
   1: {
     showName: 'Ethereum',

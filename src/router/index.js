@@ -42,6 +42,11 @@ const appRoute = {
       component: () => import('@/views/medal/index.vue'),
     },
     {
+      path: 'test',
+      name: 'Test',
+      component: () => import('@/views/test/index.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('@/views/other/notFound.vue'),
