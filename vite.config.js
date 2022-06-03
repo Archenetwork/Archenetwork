@@ -29,6 +29,9 @@ export default ({ mode }) => {
     build: {
       // minify: false,
       // cssCodeSplit: false,
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
       terserOptions: {
         compress: {
           keep_infinity: true,
